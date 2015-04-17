@@ -1,0 +1,603 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1F51FBE71A3244E6008EEAA1 /* libFreshGame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F51FBE61A3244E1008EEAA1 /* libFreshGame.a */; };
+		1F51FBEB1A324548008EEAA1 /* AppStage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F51FBE81A324548008EEAA1 /* AppStage.cpp */; };
+		1F8BF02E18C6725E007C5E7F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8BF02D18C6725E007C5E7F /* Cocoa.framework */; };
+		1F8BF06618C67355007C5E7F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F8BF06418C67355007C5E7F /* main.cpp */; };
+		1F8BF24C18C67448007C5E7F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8BF24B18C67448007C5E7F /* Security.framework */; };
+		1F8BF24E18C6744E007C5E7F /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8BF24D18C6744E007C5E7F /* IOKit.framework */; };
+		1F8BF25018C67455007C5E7F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8BF24F18C67455007C5E7F /* AudioToolbox.framework */; };
+		1F8BF25218C6745B007C5E7F /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8BF25118C6745B007C5E7F /* OpenAL.framework */; };
+		1F8BF25418C67460007C5E7F /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8BF25318C67460007C5E7F /* OpenGL.framework */; };
+		1F8BF25618C67464007C5E7F /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8BF25518C67464007C5E7F /* libcurl.dylib */; };
+		1F8BF25818C6746A007C5E7F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8BF25718C6746A007C5E7F /* libz.dylib */; };
+		1F8BF25A18C6746E007C5E7F /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8BF25918C6746E007C5E7F /* Carbon.framework */; };
+		1F8BF26718C674E3007C5E7F /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 1F8BF26618C674E3007C5E7F /* assets */; };
+		1FB348F01A2D0D0300536EC8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1FB348EC1A2D0D0300536EC8 /* InfoPlist.strings */; };
+		1FB348F11A2D0D0300536EC8 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FB348EE1A2D0D0300536EC8 /* MainMenu.xib */; };
+		1FE0FE61192EFADD00B86F2F /* libFreshCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE0FE45192EFA9700B86F2F /* libFreshCore.a */; };
+		1FE0FE62192EFADD00B86F2F /* libFreshPlatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE0FE49192EFA9700B86F2F /* libFreshPlatform.a */; };
+		1FE0FE63192EFADD00B86F2F /* libFreshScene2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE0FE4B192EFA9700B86F2F /* libFreshScene2D.a */; };
+		1FE0FE64192EFADD00B86F2F /* libFreshTelemetry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE0FE4D192EFA9700B86F2F /* libFreshTelemetry.a */; };
+		1FE0FE65192EFADD00B86F2F /* libtinyxml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE0FE4F192EFA9700B86F2F /* libtinyxml.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1F51FBE11A3244E1008EEAA1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FE0FE3B192EFA9700B86F2F /* Fresh.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1FDB7C861A2E6F490016D6ED;
+			remoteInfo = FreshGame;
+		};
+		1F51FBE51A3244E1008EEAA1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FE0FE3B192EFA9700B86F2F /* Fresh.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1FDB7C871A2E6F490016D6ED;
+			remoteInfo = FreshGame;
+		};
+		1FE0FE44192EFA9700B86F2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FE0FE3B192EFA9700B86F2F /* Fresh.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3591E41F027E4E589E5275D4;
+			remoteInfo = FreshCore;
+		};
+		1FE0FE46192EFA9700B86F2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FE0FE3B192EFA9700B86F2F /* Fresh.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0F45890EE0E24DA28C93A78B;
+			remoteInfo = FreshEditor;
+		};
+		1FE0FE48192EFA9700B86F2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FE0FE3B192EFA9700B86F2F /* Fresh.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 28DA887F75714F1EA5EFDA76;
+			remoteInfo = FreshPlatform;
+		};
+		1FE0FE4A192EFA9700B86F2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FE0FE3B192EFA9700B86F2F /* Fresh.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B7685611DEC04A989DE2E859;
+			remoteInfo = FreshScene2D;
+		};
+		1FE0FE4C192EFA9700B86F2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FE0FE3B192EFA9700B86F2F /* Fresh.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4C1B47D85DF04A8591B7789B;
+			remoteInfo = FreshTelemetry;
+		};
+		1FE0FE4E192EFA9700B86F2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FE0FE3B192EFA9700B86F2F /* Fresh.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1593EFCEA84F4879A3960DA6;
+			remoteInfo = tinyxml;
+		};
+		1FE0FE57192EFAD600B86F2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FE0FE3B192EFA9700B86F2F /* Fresh.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 50B2EB12178C485EB5FE4626;
+			remoteInfo = FreshCore;
+		};
+		1FE0FE59192EFAD600B86F2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FE0FE3B192EFA9700B86F2F /* Fresh.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F58FF496D4314191983AFD89;
+			remoteInfo = FreshPlatform;
+		};
+		1FE0FE5B192EFAD600B86F2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FE0FE3B192EFA9700B86F2F /* Fresh.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1ED9F2E0111445F2955D1607;
+			remoteInfo = FreshScene2D;
+		};
+		1FE0FE5D192EFAD600B86F2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FE0FE3B192EFA9700B86F2F /* Fresh.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 19A67DD4F90340069B4B77ED;
+			remoteInfo = FreshTelemetry;
+		};
+		1FE0FE5F192EFAD600B86F2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FE0FE3B192EFA9700B86F2F /* Fresh.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2BF94831CFB146538215237F;
+			remoteInfo = tinyxml;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1F51FBE81A324548008EEAA1 /* AppStage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppStage.cpp; sourceTree = "<group>"; };
+		1F51FBE91A324548008EEAA1 /* AppStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppStage.h; sourceTree = "<group>"; };
+		1F51FBEA1A324548008EEAA1 /* Essentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Essentials.h; sourceTree = "<group>"; };
+		1F8BF02A18C6725E007C5E7F /* ld32.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ld32.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F8BF02D18C6725E007C5E7F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		1F8BF03018C6725E007C5E7F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		1F8BF03118C6725E007C5E7F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		1F8BF03218C6725E007C5E7F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1F8BF06418C67355007C5E7F /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		1F8BF24B18C67448007C5E7F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		1F8BF24D18C6744E007C5E7F /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		1F8BF24F18C67455007C5E7F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		1F8BF25118C6745B007C5E7F /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		1F8BF25318C67460007C5E7F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		1F8BF25518C67464007C5E7F /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
+		1F8BF25718C6746A007C5E7F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		1F8BF25918C6746E007C5E7F /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		1F8BF26618C674E3007C5E7F /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../../assets; sourceTree = "<group>"; };
+		1FB348ED1A2D0D0300536EC8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = FreshApp/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
+		1FB348EF1A2D0D0300536EC8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = FreshApp/en.lproj/MainMenu.xib; sourceTree = SOURCE_ROOT; };
+		1FE0FE3B192EFA9700B86F2F /* Fresh.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Fresh.xcodeproj; path = ../../../Fresh/Platforms/MacOSX/Fresh.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1F8BF02718C6725E007C5E7F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F51FBE71A3244E6008EEAA1 /* libFreshGame.a in Frameworks */,
+				1FE0FE61192EFADD00B86F2F /* libFreshCore.a in Frameworks */,
+				1FE0FE62192EFADD00B86F2F /* libFreshPlatform.a in Frameworks */,
+				1FE0FE63192EFADD00B86F2F /* libFreshScene2D.a in Frameworks */,
+				1FE0FE64192EFADD00B86F2F /* libFreshTelemetry.a in Frameworks */,
+				1FE0FE65192EFADD00B86F2F /* libtinyxml.a in Frameworks */,
+				1F8BF25A18C6746E007C5E7F /* Carbon.framework in Frameworks */,
+				1F8BF25818C6746A007C5E7F /* libz.dylib in Frameworks */,
+				1F8BF25618C67464007C5E7F /* libcurl.dylib in Frameworks */,
+				1F8BF25418C67460007C5E7F /* OpenGL.framework in Frameworks */,
+				1F8BF25218C6745B007C5E7F /* OpenAL.framework in Frameworks */,
+				1F8BF25018C67455007C5E7F /* AudioToolbox.framework in Frameworks */,
+				1F8BF24E18C6744E007C5E7F /* IOKit.framework in Frameworks */,
+				1F8BF24C18C67448007C5E7F /* Security.framework in Frameworks */,
+				1F8BF02E18C6725E007C5E7F /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1F8BF02118C6725E007C5E7F = {
+			isa = PBXGroup;
+			children = (
+				1FE0FE3B192EFA9700B86F2F /* Fresh.xcodeproj */,
+				1F8BF26618C674E3007C5E7F /* assets */,
+				1F8BF06118C67355007C5E7F /* src */,
+				1F8BF03418C6725E007C5E7F /* Supporting Files */,
+				1F8BF02C18C6725E007C5E7F /* Frameworks */,
+				1F8BF02B18C6725E007C5E7F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1F8BF02B18C6725E007C5E7F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1F8BF02A18C6725E007C5E7F /* ld32.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1F8BF02C18C6725E007C5E7F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1F8BF25918C6746E007C5E7F /* Carbon.framework */,
+				1F8BF25718C6746A007C5E7F /* libz.dylib */,
+				1F8BF25518C67464007C5E7F /* libcurl.dylib */,
+				1F8BF25318C67460007C5E7F /* OpenGL.framework */,
+				1F8BF25118C6745B007C5E7F /* OpenAL.framework */,
+				1F8BF24F18C67455007C5E7F /* AudioToolbox.framework */,
+				1F8BF24D18C6744E007C5E7F /* IOKit.framework */,
+				1F8BF24B18C67448007C5E7F /* Security.framework */,
+				1F8BF02D18C6725E007C5E7F /* Cocoa.framework */,
+				1F8BF02F18C6725E007C5E7F /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1F8BF02F18C6725E007C5E7F /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1F8BF03018C6725E007C5E7F /* AppKit.framework */,
+				1F8BF03118C6725E007C5E7F /* CoreData.framework */,
+				1F8BF03218C6725E007C5E7F /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		1F8BF03418C6725E007C5E7F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1FB348EC1A2D0D0300536EC8 /* InfoPlist.strings */,
+				1FB348EE1A2D0D0300536EC8 /* MainMenu.xib */,
+			);
+			name = "Supporting Files";
+			path = FreshApp;
+			sourceTree = "<group>";
+		};
+		1F8BF06118C67355007C5E7F /* src */ = {
+			isa = PBXGroup;
+			children = (
+				1F51FBE81A324548008EEAA1 /* AppStage.cpp */,
+				1F51FBE91A324548008EEAA1 /* AppStage.h */,
+				1F51FBEA1A324548008EEAA1 /* Essentials.h */,
+				1F8BF06418C67355007C5E7F /* main.cpp */,
+			);
+			name = src;
+			path = ../../src;
+			sourceTree = "<group>";
+		};
+		1FE0FE3C192EFA9700B86F2F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1FE0FE45192EFA9700B86F2F /* libFreshCore.a */,
+				1FE0FE47192EFA9700B86F2F /* libFreshEditor.a */,
+				1FE0FE49192EFA9700B86F2F /* libFreshPlatform.a */,
+				1FE0FE4B192EFA9700B86F2F /* libFreshScene2D.a */,
+				1F51FBE61A3244E1008EEAA1 /* libFreshGame.a */,
+				1FE0FE4D192EFA9700B86F2F /* libFreshTelemetry.a */,
+				1FE0FE4F192EFA9700B86F2F /* libtinyxml.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1F8BF02918C6725E007C5E7F /* Ludum Dare 32 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1F8BF05B18C6725E007C5E7F /* Build configuration list for PBXNativeTarget "Ludum Dare 32" */;
+			buildPhases = (
+				1F9E823118C8D35B00BF7B00 /* ShellScript */,
+				1F8BF02618C6725E007C5E7F /* Sources */,
+				1F8BF02718C6725E007C5E7F /* Frameworks */,
+				1F8BF02818C6725E007C5E7F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1F51FBE21A3244E1008EEAA1 /* PBXTargetDependency */,
+				1FE0FE58192EFAD600B86F2F /* PBXTargetDependency */,
+				1FE0FE5A192EFAD600B86F2F /* PBXTargetDependency */,
+				1FE0FE5C192EFAD600B86F2F /* PBXTargetDependency */,
+				1FE0FE5E192EFAD600B86F2F /* PBXTargetDependency */,
+				1FE0FE60192EFAD600B86F2F /* PBXTargetDependency */,
+			);
+			name = "Ludum Dare 32";
+			productName = ld32;
+			productReference = 1F8BF02A18C6725E007C5E7F /* ld32.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1F8BF02218C6725E007C5E7F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = ld;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "The Electric Toy Co";
+			};
+			buildConfigurationList = 1F8BF02518C6725E007C5E7F /* Build configuration list for PBXProject "FreshApp" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1F8BF02118C6725E007C5E7F;
+			productRefGroup = 1F8BF02B18C6725E007C5E7F /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 1FE0FE3C192EFA9700B86F2F /* Products */;
+					ProjectRef = 1FE0FE3B192EFA9700B86F2F /* Fresh.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				1F8BF02918C6725E007C5E7F /* Ludum Dare 32 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		1F51FBE61A3244E1008EEAA1 /* libFreshGame.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libFreshGame.a;
+			remoteRef = 1F51FBE51A3244E1008EEAA1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1FE0FE45192EFA9700B86F2F /* libFreshCore.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libFreshCore.a;
+			remoteRef = 1FE0FE44192EFA9700B86F2F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1FE0FE47192EFA9700B86F2F /* libFreshEditor.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libFreshEditor.a;
+			remoteRef = 1FE0FE46192EFA9700B86F2F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1FE0FE49192EFA9700B86F2F /* libFreshPlatform.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libFreshPlatform.a;
+			remoteRef = 1FE0FE48192EFA9700B86F2F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1FE0FE4B192EFA9700B86F2F /* libFreshScene2D.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libFreshScene2D.a;
+			remoteRef = 1FE0FE4A192EFA9700B86F2F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1FE0FE4D192EFA9700B86F2F /* libFreshTelemetry.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libFreshTelemetry.a;
+			remoteRef = 1FE0FE4C192EFA9700B86F2F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1FE0FE4F192EFA9700B86F2F /* libtinyxml.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libtinyxml.a;
+			remoteRef = 1FE0FE4E192EFA9700B86F2F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1F8BF02818C6725E007C5E7F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F8BF26718C674E3007C5E7F /* assets in Resources */,
+				1FB348F01A2D0D0300536EC8 /* InfoPlist.strings in Resources */,
+				1FB348F11A2D0D0300536EC8 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1F9E823118C8D35B00BF7B00 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "export PATH=/opt/local/bin:/opt/local/sbin:$PATH\n$SRCROOT/../../../Fresh/tools/upver.rb ../../assets/ver/version_Mac.txt\ncp ../../assets/ver/version_Mac.txt ../../assets/ver/version.txt";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1F8BF02618C6725E007C5E7F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F51FBEB1A324548008EEAA1 /* AppStage.cpp in Sources */,
+				1F8BF06618C67355007C5E7F /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1F51FBE21A3244E1008EEAA1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FreshGame;
+			targetProxy = 1F51FBE11A3244E1008EEAA1 /* PBXContainerItemProxy */;
+		};
+		1FE0FE58192EFAD600B86F2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FreshCore;
+			targetProxy = 1FE0FE57192EFAD600B86F2F /* PBXContainerItemProxy */;
+		};
+		1FE0FE5A192EFAD600B86F2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FreshPlatform;
+			targetProxy = 1FE0FE59192EFAD600B86F2F /* PBXContainerItemProxy */;
+		};
+		1FE0FE5C192EFAD600B86F2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FreshScene2D;
+			targetProxy = 1FE0FE5B192EFAD600B86F2F /* PBXContainerItemProxy */;
+		};
+		1FE0FE5E192EFAD600B86F2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FreshTelemetry;
+			targetProxy = 1FE0FE5D192EFAD600B86F2F /* PBXContainerItemProxy */;
+		};
+		1FE0FE60192EFAD600B86F2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = tinyxml;
+			targetProxy = 1FE0FE5F192EFAD600B86F2F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1FB348EC1A2D0D0300536EC8 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1FB348ED1A2D0D0300536EC8 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1FB348EE1A2D0D0300536EC8 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1FB348EF1A2D0D0300536EC8 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1F8BF05918C6725E007C5E7F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-all_load";
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/../../../Fresh/**";
+			};
+			name = Debug;
+		};
+		1F8BF05A18C6725E007C5E7F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_LDFLAGS = "-all_load";
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/../../../Fresh/**";
+			};
+			name = Release;
+		};
+		1F8BF05C18C6725E007C5E7F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FreshApp/FreshApp-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"FRESH_TELEMETRY_ENABLED=1",
+					"DEV_MODE=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INFOPLIST_FILE = "FreshApp/FreshApp-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = ld32;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		1F8BF05D18C6725E007C5E7F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FreshApp/FreshApp-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"FRESH_TELEMETRY_ENABLED=1",
+					"DEV_MODE=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INFOPLIST_FILE = "FreshApp/FreshApp-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = ld32;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1F8BF02518C6725E007C5E7F /* Build configuration list for PBXProject "FreshApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F8BF05918C6725E007C5E7F /* Debug */,
+				1F8BF05A18C6725E007C5E7F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1F8BF05B18C6725E007C5E7F /* Build configuration list for PBXNativeTarget "Ludum Dare 32" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F8BF05C18C6725E007C5E7F /* Debug */,
+				1F8BF05D18C6725E007C5E7F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1F8BF02218C6725E007C5E7F /* Project object */;
+}

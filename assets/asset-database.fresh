@@ -1,0 +1,13 @@
+// ld32 asset database
+
+object AssetClassMap {
+	map {
+		Texture TextureLoaderConfigured
+		AudioCue AudioCueLoaderConfigured
+		Font FontLoaderConfigured
+	}
+}
+
+include assets/asset-classes.fresh
+
+include assets/assets.fresh

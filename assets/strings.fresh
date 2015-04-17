@@ -1,0 +1,7 @@
+// ld32 strings 
+
+object StringTable strings {
+	table {
+		AppTitle "ld32"
+	}
+}
