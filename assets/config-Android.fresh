@@ -1,0 +1,8 @@
+// ld32 Application Configuration - Android 
+
+include "assets/config.fresh"
+
+object AppStageConfig config {
+	logFileName ""// Disable log file on mobile 
+}
+
