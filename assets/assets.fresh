@@ -19,6 +19,10 @@ object TextureLoaderConfigured background {
 	clampModeV Wrap
 }
 
+object TextureLoaderConfigured muzzle_flash {
+	filePath images/muzzle_flash
+}
+
 // Sounds 
 
 // Shaders 

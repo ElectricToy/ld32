@@ -32,6 +32,10 @@
 		1FE1CC731AE2068100CDE8F1 /* ProgrammingArea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1CC711AE2068100CDE8F1 /* ProgrammingArea.cpp */; };
 		1FE1CC761AE20FD300CDE8F1 /* DroneController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1CC741AE20FD300CDE8F1 /* DroneController.cpp */; };
 		1FE1CC791AE2105500CDE8F1 /* Drone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1CC771AE2105500CDE8F1 /* Drone.cpp */; };
+		1FE1CC7C1AE217B100CDE8F1 /* Actor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1CC7A1AE217B100CDE8F1 /* Actor.cpp */; };
+		1FE1CC7F1AE2186900CDE8F1 /* Weapon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1CC7D1AE2186900CDE8F1 /* Weapon.cpp */; };
+		1FE1CC821AE21DDF00CDE8F1 /* Pawn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1CC801AE21DDF00CDE8F1 /* Pawn.cpp */; };
+		1FE1CC861AE2253900CDE8F1 /* Bullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1CC841AE2253900CDE8F1 /* Bullet.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -160,6 +164,14 @@
 		1FE1CC751AE20FD300CDE8F1 /* DroneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DroneController.h; sourceTree = "<group>"; };
 		1FE1CC771AE2105500CDE8F1 /* Drone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Drone.cpp; sourceTree = "<group>"; };
 		1FE1CC781AE2105500CDE8F1 /* Drone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Drone.h; sourceTree = "<group>"; };
+		1FE1CC7A1AE217B100CDE8F1 /* Actor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Actor.cpp; sourceTree = "<group>"; };
+		1FE1CC7B1AE217B100CDE8F1 /* Actor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Actor.h; sourceTree = "<group>"; };
+		1FE1CC7D1AE2186900CDE8F1 /* Weapon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Weapon.cpp; sourceTree = "<group>"; };
+		1FE1CC7E1AE2186900CDE8F1 /* Weapon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weapon.h; sourceTree = "<group>"; };
+		1FE1CC801AE21DDF00CDE8F1 /* Pawn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pawn.cpp; sourceTree = "<group>"; };
+		1FE1CC811AE21DDF00CDE8F1 /* Pawn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pawn.h; sourceTree = "<group>"; };
+		1FE1CC841AE2253900CDE8F1 /* Bullet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bullet.cpp; sourceTree = "<group>"; };
+		1FE1CC851AE2253900CDE8F1 /* Bullet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bullet.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,20 +260,28 @@
 		1F8BF06118C67355007C5E7F /* src */ = {
 			isa = PBXGroup;
 			children = (
+				1FE1CC7A1AE217B100CDE8F1 /* Actor.cpp */,
+				1FE1CC7B1AE217B100CDE8F1 /* Actor.h */,
 				1F51FBE81A324548008EEAA1 /* AppStage.cpp */,
 				1F51FBE91A324548008EEAA1 /* AppStage.h */,
-				1F51FBEA1A324548008EEAA1 /* Essentials.h */,
-				1F8BF06418C67355007C5E7F /* main.cpp */,
-				1FE1CC6A1AE2033C00CDE8F1 /* World.cpp */,
-				1FE1CC6B1AE2033C00CDE8F1 /* World.h */,
-				1FE1CC6E1AE204D200CDE8F1 /* HUD.cpp */,
-				1FE1CC6F1AE204D200CDE8F1 /* HUD.h */,
-				1FE1CC711AE2068100CDE8F1 /* ProgrammingArea.cpp */,
-				1FE1CC721AE2068100CDE8F1 /* ProgrammingArea.h */,
-				1FE1CC741AE20FD300CDE8F1 /* DroneController.cpp */,
-				1FE1CC751AE20FD300CDE8F1 /* DroneController.h */,
+				1FE1CC841AE2253900CDE8F1 /* Bullet.cpp */,
+				1FE1CC851AE2253900CDE8F1 /* Bullet.h */,
 				1FE1CC771AE2105500CDE8F1 /* Drone.cpp */,
 				1FE1CC781AE2105500CDE8F1 /* Drone.h */,
+				1FE1CC741AE20FD300CDE8F1 /* DroneController.cpp */,
+				1FE1CC751AE20FD300CDE8F1 /* DroneController.h */,
+				1F51FBEA1A324548008EEAA1 /* Essentials.h */,
+				1FE1CC6E1AE204D200CDE8F1 /* HUD.cpp */,
+				1FE1CC6F1AE204D200CDE8F1 /* HUD.h */,
+				1F8BF06418C67355007C5E7F /* main.cpp */,
+				1FE1CC801AE21DDF00CDE8F1 /* Pawn.cpp */,
+				1FE1CC811AE21DDF00CDE8F1 /* Pawn.h */,
+				1FE1CC711AE2068100CDE8F1 /* ProgrammingArea.cpp */,
+				1FE1CC721AE2068100CDE8F1 /* ProgrammingArea.h */,
+				1FE1CC7D1AE2186900CDE8F1 /* Weapon.cpp */,
+				1FE1CC7E1AE2186900CDE8F1 /* Weapon.h */,
+				1FE1CC6A1AE2033C00CDE8F1 /* World.cpp */,
+				1FE1CC6B1AE2033C00CDE8F1 /* World.h */,
 			);
 			name = src;
 			path = ../../src;
@@ -431,10 +451,14 @@
 				1F51FBEB1A324548008EEAA1 /* AppStage.cpp in Sources */,
 				1FE1CC701AE204D200CDE8F1 /* HUD.cpp in Sources */,
 				1F8BF06618C67355007C5E7F /* main.cpp in Sources */,
+				1FE1CC7C1AE217B100CDE8F1 /* Actor.cpp in Sources */,
 				1FE1CC731AE2068100CDE8F1 /* ProgrammingArea.cpp in Sources */,
 				1FE1CC761AE20FD300CDE8F1 /* DroneController.cpp in Sources */,
 				1FE1CC6C1AE2033C00CDE8F1 /* World.cpp in Sources */,
+				1FE1CC861AE2253900CDE8F1 /* Bullet.cpp in Sources */,
+				1FE1CC7F1AE2186900CDE8F1 /* Weapon.cpp in Sources */,
 				1FE1CC791AE2105500CDE8F1 /* Drone.cpp in Sources */,
+				1FE1CC821AE21DDF00CDE8F1 /* Pawn.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

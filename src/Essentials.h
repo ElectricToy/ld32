@@ -24,8 +24,11 @@
 #include "UIPopup.h"
 #include "SimpleButton.h"
 #include "Stage.h"
+#include "Camera.h"
+#include "FreshWorld.h"
 #include "FreshActor.h"
 #include "FreshActorController.h"
+#include "ParticleEmitter.h"
 
 #if FRESH_TELEMETRY_ENABLED
 #	include "UserTelemetry.h"

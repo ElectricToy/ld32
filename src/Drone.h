@@ -10,28 +10,28 @@
 #define FreshApp_Drone_h
 
 #include "Essentials.h"
+#include "Pawn.h"
 
 namespace ld
 {
 	
-	class Drone : public fr::FreshActor
+	class Drone : public Pawn
 	{
-		FRESH_DECLARE_CLASS( Drone, FreshActor );
+		FRESH_DECLARE_CLASS( Drone, Pawn );
 	public:
-		
+
 		virtual void update() override
 		{
 			Super::update();
 			
 			// Clamp to sides.
 			//
+			const auto PADDING = 8.0f;
 			const auto halfDimensions = dimensions() * 0.5f;
 			
 			const auto pos = position();
-			position( clamp( pos.x, WORLD_RANGE_X.min + halfDimensions.x, WORLD_RANGE_X.max - halfDimensions.x ), pos.y );
+			position( clamp( pos.x, WORLD_RANGE_X.min + halfDimensions.x + PADDING, WORLD_RANGE_X.max - halfDimensions.x - PADDING ), pos.y );
 		}
-		
-	private:
 	};
 	
 }

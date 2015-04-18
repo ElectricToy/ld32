@@ -6,12 +6,54 @@ class DroneControllerDefault extends DroneController {
 
 }
 
+class MuzzleFlash extends ParticleEmitter {
+	particleTexture Texture'muzzle_flash'
+	startingParticles 1
+	destroyWhenAllDead true
+	cycleDuration 0.1
+	baseScale 11
+	creationSpawnBurst true
+	creationPauseAfterBurst true
+	spawnRotationRange 0,359
+	vecKeyframesColor [
+		"{ 0, Yellow }"
+		"{ 1, Invisible }"
+	]
+}
+
+class BulletMachineGun extends Bullet {
+	texture Texture'white_simple'
+	scale 2
+	velocity 0,-2000
+	lifespan 60
+}
+
+class WeaponMachineGuns extends Weapon {
+	shots [
+		"{MuzzleFlash, (0), BulletMachineGun, (0)}"
+	]
+}
+
+class WeaponMissile extends Weapon {
+	shots [
+	]
+}
+
+
 class DroneDefault extends Drone {
 	texture Texture'white_simple'
 	scale 16
 	dimensions 24,32	// TODO!!!
 	airDrag 16
 	controllerImpulseScale 5000,0
+	color DarkGreen
+
+	weapons [
+		object WeaponMachineGuns {
+		}
+		object WeaponMissile {
+		}
+	]
 
 	controller object DroneControllerDefault {
 	}
