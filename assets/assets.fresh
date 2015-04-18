@@ -27,14 +27,6 @@ object TextureLoaderConfigured drone {
 	filePath images/drone
 }
 
-object TextureLoaderConfigured clouds {
-	extension jpg
-	filePath clouds
-	filterMode Bilinear
-	clampModeU Wrap
-	clampModeV Wrap
-}
-
 // Sounds 
 
 // Shaders 

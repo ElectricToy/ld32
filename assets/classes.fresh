@@ -115,44 +115,6 @@ class WorldBackground extends MovieClip {
 	]
 }
 
-class Clouds extends Sprite {
-	children[
-		object Sprite {
-			scale 8
-			texture Texture'clouds'
-			textureWindow 0,0,2,2
-			blendMode Multiply
-			color White
-		}
-	]
-}
-
-class CloudCover extends MovieClip {
-	children [
-		object Clouds {
-		}
-	]
-
-	passthrough [
-		object keyframe {
-			children [
-				object child $1 {							
-					position -512,-4096
-				}
-			]
-			tween object Linear {							
-			}					
-		}
-		object keyframe {
-			rel_s 170
-			children [
-				object child $1 {
-					position 512,4096
-				}
-			]
-		}
-	]
-}
 class WorldDefault extends World {
 	children [
 		object WorldBackground $^_background {
@@ -167,9 +129,6 @@ class WorldDefault extends World {
 					position 1,-28
 				}
 			]
-		}
-
-		object CloudCover $^_cloudCover {			
 		}
 	]
 }
