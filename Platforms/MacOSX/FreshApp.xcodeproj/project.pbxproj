@@ -30,6 +30,8 @@
 		1FE1CC6C1AE2033C00CDE8F1 /* World.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1CC6A1AE2033C00CDE8F1 /* World.cpp */; };
 		1FE1CC701AE204D200CDE8F1 /* HUD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1CC6E1AE204D200CDE8F1 /* HUD.cpp */; };
 		1FE1CC731AE2068100CDE8F1 /* ProgrammingArea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1CC711AE2068100CDE8F1 /* ProgrammingArea.cpp */; };
+		1FE1CC761AE20FD300CDE8F1 /* DroneController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1CC741AE20FD300CDE8F1 /* DroneController.cpp */; };
+		1FE1CC791AE2105500CDE8F1 /* Drone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1CC771AE2105500CDE8F1 /* Drone.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,6 +156,10 @@
 		1FE1CC6F1AE204D200CDE8F1 /* HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUD.h; sourceTree = "<group>"; };
 		1FE1CC711AE2068100CDE8F1 /* ProgrammingArea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProgrammingArea.cpp; sourceTree = "<group>"; };
 		1FE1CC721AE2068100CDE8F1 /* ProgrammingArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgrammingArea.h; sourceTree = "<group>"; };
+		1FE1CC741AE20FD300CDE8F1 /* DroneController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DroneController.cpp; sourceTree = "<group>"; };
+		1FE1CC751AE20FD300CDE8F1 /* DroneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DroneController.h; sourceTree = "<group>"; };
+		1FE1CC771AE2105500CDE8F1 /* Drone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Drone.cpp; sourceTree = "<group>"; };
+		1FE1CC781AE2105500CDE8F1 /* Drone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Drone.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +258,10 @@
 				1FE1CC6F1AE204D200CDE8F1 /* HUD.h */,
 				1FE1CC711AE2068100CDE8F1 /* ProgrammingArea.cpp */,
 				1FE1CC721AE2068100CDE8F1 /* ProgrammingArea.h */,
+				1FE1CC741AE20FD300CDE8F1 /* DroneController.cpp */,
+				1FE1CC751AE20FD300CDE8F1 /* DroneController.h */,
+				1FE1CC771AE2105500CDE8F1 /* Drone.cpp */,
+				1FE1CC781AE2105500CDE8F1 /* Drone.h */,
 			);
 			name = src;
 			path = ../../src;
@@ -422,7 +432,9 @@
 				1FE1CC701AE204D200CDE8F1 /* HUD.cpp in Sources */,
 				1F8BF06618C67355007C5E7F /* main.cpp in Sources */,
 				1FE1CC731AE2068100CDE8F1 /* ProgrammingArea.cpp in Sources */,
+				1FE1CC761AE20FD300CDE8F1 /* DroneController.cpp in Sources */,
 				1FE1CC6C1AE2033C00CDE8F1 /* World.cpp in Sources */,
+				1FE1CC791AE2105500CDE8F1 /* Drone.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

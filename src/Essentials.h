@@ -24,6 +24,8 @@
 #include "UIPopup.h"
 #include "SimpleButton.h"
 #include "Stage.h"
+#include "FreshActor.h"
+#include "FreshActorController.h"
 
 #if FRESH_TELEMETRY_ENABLED
 #	include "UserTelemetry.h"
@@ -61,6 +63,7 @@ namespace ld
 	using fr::ObjectId;
 	using fr::ClassFilter;
 	using fr::dynamic_freshptr_cast;
+	using fr::sign;
 	
 	template< typename T = fr::DisplayObject >
 	T& getExpectedDescendant( const fr::DisplayObjectContainer& host, const std::string& nameSubstring = "" )
@@ -69,6 +72,9 @@ namespace ld
 		ASSERT( descendant );
 		return *descendant;
 	}
+	
+	const real WORLD_EXTENTS_X = 320.0f;
+	const Range< real > WORLD_RANGE_X{ WORLD_EXTENTS_X * -0.5f, WORLD_EXTENTS_X * 0.5f };
 }
 
 #endif

@@ -3,7 +3,7 @@
 object AppStage theStage {
 
 	stageDimensions "320,0"
-
+	
 	children [
 
 		object DisplayObjectContainer $^_worldHost {
