@@ -24,6 +24,10 @@ namespace ld
 			return nUpdates() * 1.0 / 60.0;
 		}
 
+		fr::DisplayObjectContainer& shadowLand() const
+		{
+			return getExpectedDescendant< DisplayObjectContainer >( *this, "_shadowLand" );
+		}
 	};
 }
 #endif /* defined(__FreshApp__World__) */

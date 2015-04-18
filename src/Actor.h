@@ -27,7 +27,59 @@ namespace ld
 			return *ancestor;
 		}
 		
+		virtual void update()
+		{
+			Super::update();
+			
+			if( m_shadowHost )
+			{
+				if( !m_shadowHost->parent() )
+				{
+					world().shadowLand().addChild( m_shadowHost );
+				}
+				
+				m_shadowHost->position( position() + m_shadowOffset );
+				
+				if( m_shadowHost->numChildren() > 0 )
+				{
+					if( auto shadow = m_shadowHost->getChildAt( 0 )->as< Sprite >() )
+					{
+						shadow->blendMode( fr::Renderer::BlendMode::Alpha );
+						shadow->texture( texture() );
+						shadow->pivot( pivot() );
+						shadow->scale( scale() );
+					}
+				}
+			}
+		}
+		
+		virtual void onAddedToStage()
+		{
+			Super::onAddedToStage();
+			createShadow();
+		}
+		
+	protected:
+		
+		void createShadow()
+		{
+			if( !m_shadowHost && m_shadowHostClass )
+			{
+				m_shadowHost = fr::createObject< DisplayObjectContainer >( *m_shadowHostClass );
+			}
+			
+			if( m_shadowHost )
+			{
+				m_shadowHost->removeChildren();
+				m_shadowHost->addChild( fr::createObject< fr::Sprite >() );
+			}
+		}
+		
 	private:
+		
+		VAR( ClassInfo::cptr, m_shadowHostClass );
+		VAR( fr::DisplayObjectContainer::ptr, m_shadowHost );
+		DVAR( vec2, m_shadowOffset, vec2( 16 ));
 		
 	};
 	

@@ -2,8 +2,12 @@
 
 include assets/hud.fresh
 
-class DroneControllerDefault extends DroneController {
+class ShadowHost extends DisplayObjectContainer {
+	color 40000000
+	blendMode AlphaPremultiplied
+}
 
+class DroneControllerDefault extends DroneController {
 }
 
 class MuzzleFlash extends ParticleEmitter {
@@ -43,7 +47,6 @@ class WeaponMissile extends Weapon {
 	]
 }
 
-
 class DroneDefault extends Drone {
 	texture Texture'white_simple'
 	scale 16
@@ -51,6 +54,8 @@ class DroneDefault extends Drone {
 	airDrag 16
 	controllerImpulseScale 5000,0
 	color DarkGreen
+
+	shadowHostClass ShadowHost
 
 	weapons [
 		object WeaponMachineGuns {
@@ -68,49 +73,55 @@ class Scrolled extends Sprite {
 	scale 4
 }
 
+class WorldBackground extends MovieClip {
+	children [
+		object Sprite {
+			children [
+				object Scrolled {							
+				}
+			]
+		}
+		object Sprite {
+			children [
+				object Scrolled {							
+				}
+			]
+		}
+	]
+
+	passthrough [
+		object keyframe {
+			children [
+				object child $1 {							
+					position 0,-8192
+				}
+				object child $2 {
+					position 0,0
+				}
+			]
+			tween object Linear {							
+			}					
+		}
+		object keyframe {
+			rel_s 120
+			children [
+				object child $1 {
+					position 0,0
+				}
+				object child $2 {
+					position 0,8192
+				}
+			]
+		}
+	]
+}
+
 class WorldDefault extends World {
 	children [
-		object MovieClip $^_background {
-			children [
-				object Sprite {
-					children [
-						object Scrolled {							
-						}
-					]
-				}
-				object Sprite {
-					children [
-						object Scrolled {							
-						}
-					]
-				}
-			]
+		object WorldBackground $^_background {
+		}
 
-			passthrough [
-				object keyframe {
-					children [
-						object child $1 {							
-							position 0,-8192
-						}
-						object child $2 {
-							position 0,0
-						}
-					]
-					tween object Linear {							
-					}					
-				}
-				object keyframe {
-					rel_s 120
-					children [
-						object child $1 {
-							position 0,0
-						}
-						object child $2 {
-							position 0,8192
-						}
-					]
-				}
-			]
+		object DisplayObjectContainer $^_shadowLand {			
 		}
 
 		object DisplayObjectContainer $^_actorHost {

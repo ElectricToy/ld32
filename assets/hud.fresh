@@ -80,7 +80,7 @@ class ProgrammingTextField extends UIEditBox {
 	multiline true
 	textClass ProgrammingText
 	caretClass ProgrammingTextCaret
-	padding 4
+	padding 8
 	backgroundColor Invisible
 	borderColor Invisible
 	placeholderText "Program me."
