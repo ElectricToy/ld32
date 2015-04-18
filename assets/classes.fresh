@@ -127,7 +127,7 @@ class WorldDefault extends World {
 		object DisplayObjectContainer $^_actorHost {
 			children [
 				object DroneDefault {
-					position 0,-28
+					position 1,-28
 				}
 			]
 		}

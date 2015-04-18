@@ -21,17 +21,14 @@ namespace
 	
 	enum class TokenType
 	{
+		Number,
 		Identifier,
 		ParenOpen,
 		ParenClose,
 		Assign,
-		LessEqual,
-		GreaterEqual,
-		Less,
-		Greater,
-		And,
-		Or,
-		Not,
+		InfixOperator,
+		PrefixOperator,
+		Minus,
 		EndOfFile,
 		
 		// Non-terminal tokens
@@ -45,17 +42,14 @@ namespace
 	{
 		switch( type )
 		{
+			CASE( Number )
 			CASE( Identifier )
 			CASE( ParenOpen )
 			CASE( ParenClose )
 			CASE( Assign )
-			CASE( LessEqual )
-			CASE( GreaterEqual )
-			CASE( Less )
-			CASE( Greater )
-			CASE( And )
-			CASE( Or )
-			CASE( Not )
+			CASE( Minus )
+			CASE( InfixOperator )
+			CASE( PrefixOperator )
 			CASE( EndOfFile )
 			CASE( Expression )
 			default: assert( false ); break;
@@ -71,11 +65,21 @@ namespace
 		std::string contents;
 	};
 	
+	inline Token numberOrIdentifier( std::string&& contents )
+	{
+		std::istringstream in( contents );
+		real number;
+		in >> number;
+		
+		TokenType type = !in.fail() ? TokenType::Number : TokenType::Identifier;
+		return Token{ type, std::move( contents )};
+	}
+	
 #define CHECK_PENDING_IDENTIFIER	\
 if( !contents.empty() )	\
 {	\
 	in.putback( c );	\
-	return Token{ TokenType::Identifier, std::move( contents ) };	\
+	return numberOrIdentifier( std::move( contents ));	\
 }
 
 	std::unique_ptr< Token > g_peekedToken;
@@ -108,80 +112,68 @@ if( !contents.empty() )	\
 				CHECK_PENDING_IDENTIFIER
 				
 				assert( contents.empty() );
-				return Token{ TokenType::ParenOpen };
+				contents += c;
+				return Token{ TokenType::ParenOpen, contents };
 			}
 			else if( c == ')' )
 			{
 				CHECK_PENDING_IDENTIFIER
 				
 				assert( contents.empty() );
-				return Token{ TokenType::ParenClose };
+				contents += c;
+				return Token{ TokenType::ParenClose, contents };
 			}
 			else if( c == '=' )
 			{
 				CHECK_PENDING_IDENTIFIER
 				
 				assert( contents.empty() );
-				return Token{ TokenType::Assign };
+				contents += c;
+				return Token{ TokenType::Assign, contents };
 			}
-			else if( c == '<' && lookahead == '=' )
+			else if(( c == '<' || c == '>' ) && lookahead == '=' )
 			{
 				CHECK_PENDING_IDENTIFIER
 				
 				assert( contents.empty() );
-				return Token{ TokenType::LessEqual };
+				contents += c;
+				contents += lookahead;
+				in.get();
+				return Token{ TokenType::InfixOperator, contents };
 			}
-			else if( c == '>' && lookahead == '=' )
+			else if( c == '<' || c == '>' || c == '+' )
 			{
 				CHECK_PENDING_IDENTIFIER
 				
 				assert( contents.empty() );
-				return Token{ TokenType::GreaterEqual };
+				contents += c;
+				return Token{ TokenType::InfixOperator, contents };
 			}
-			else if( c == '<' )
+			else if(( c == '|' || c == '&' ) && c == lookahead )
 			{
 				CHECK_PENDING_IDENTIFIER
 				
 				assert( contents.empty() );
-				return Token{ TokenType::Less };
-			}
-			else if( c == '>' )
-			{
-				CHECK_PENDING_IDENTIFIER
-				
-				assert( contents.empty() );
-				return Token{ TokenType::Greater };
-			}
-			else if( c == '|' )
-			{
-				CHECK_PENDING_IDENTIFIER
-				
-				if( lookahead != '|' )
-				{
-					throw;
-				}
-				
-				assert( contents.empty() );
-				return Token{ TokenType::Or };
-			}
-			else if( c == '&' )
-			{
-				CHECK_PENDING_IDENTIFIER
-				
-				if( lookahead != '&' )
-				{
-					throw;
-				}
-				
-				assert( contents.empty() );
-				return Token{ TokenType::And };
+				contents += c;
+				contents += lookahead;
+				in.get();
+				return Token{ TokenType::InfixOperator, contents };
 			}
 			else if( c == '!' )
 			{
 				CHECK_PENDING_IDENTIFIER
 				
 				assert( contents.empty() );
-				return Token{ TokenType::Not };
+				contents += c;
+				return Token{ TokenType::PrefixOperator, contents };
+			}
+			else if( c == '-' )
+			{
+				CHECK_PENDING_IDENTIFIER
+				
+				assert( contents.empty() );
+				contents += c;
+				return Token{ TokenType::Minus, contents };
 			}
 			else if( std::isspace( c ))
 			{
@@ -244,7 +236,7 @@ if( !contents.empty() )	\
 		return expression;
 	}
 
-	std::shared_ptr< Program::Expression > binaryOperatorExpression( std::istream& in, Token operatorToken )
+	std::shared_ptr< Program::Expression > unaryOperatorExpression( std::istream& in, Token operatorToken )
 	{
 		Program::FunctionExpression::Arguments arguments;
 		arguments.push_back( expression( in ));
@@ -253,8 +245,17 @@ if( !contents.empty() )	\
 
 	std::shared_ptr< Program::Expression > infixExpression( std::istream& in, Token firstArgumentToken )
 	{
-		return nullptr;
-		// TODO
+		Program::FunctionExpression::Arguments arguments;
+		
+		arguments.push_back( std::make_shared< Program::SensorExpression >( firstArgumentToken.contents ));
+		
+		auto operatorToken = requireToken( in, TokenType::InfixOperator );
+		
+		auto rhs = expression( in );
+		arguments.push_back( rhs );
+		
+		auto expression = std::make_shared< Program::FunctionExpression >( operatorToken.contents, std::move( arguments ));
+		return expression;
 	}
 	
 	std::shared_ptr< Program::Expression > expression( std::istream& in )
@@ -263,6 +264,14 @@ if( !contents.empty() )	\
 		
 		switch( token.type )
 		{
+			case TokenType::Number:
+			{
+				std::istringstream in( token.contents );
+				real number;
+				in >> number;
+				return std::make_shared< Program::LiteralExpression >( Program::Value{ number });
+			}
+				
 			case TokenType::ParenOpen:
 			{
 				auto expr = expression( in );
@@ -278,20 +287,17 @@ if( !contents.empty() )	\
 					case TokenType::ParenOpen:
 						return functionExpression( in, token );
 						
-					case TokenType::LessEqual:
-					case TokenType::GreaterEqual:
-					case TokenType::Less:
-					case TokenType::Greater:
-					case TokenType::And:
-					case TokenType::Or:
+					case TokenType::InfixOperator:
+					case TokenType::Minus:
 						return infixExpression( in, token );
 						
 					default:
 						return std::make_shared< Program::SensorExpression >( token.contents );;
 				}
 			}
-			case TokenType::Not:
-				return binaryOperatorExpression( in, token );
+			case TokenType::Minus:
+			case TokenType::PrefixOperator:
+				return unaryOperatorExpression( in, token );
 				break;
 				
 			default:
@@ -301,6 +307,11 @@ if( !contents.empty() )	\
 	
 	std::shared_ptr< Program::Assignment > assignment( std::istream& in )
 	{
+		if( peekToken( in ).type == TokenType::EndOfFile )
+		{
+			return nullptr;
+		}
+		
 		auto control = requireToken( in, TokenType::Identifier );
 
 		requireToken( in, TokenType::Assign );
@@ -373,6 +384,29 @@ if( !contents.empty() )	\
 						   return Program::Value{ ( arguments[ 0 ]->value( controller ).get< real >() ) >=
 							   ( arguments[ 1 ]->value( controller ).get< real >() )};
 					   } ),
+		std::make_pair( "+", []( const DroneController& controller, const Program::FunctionExpression::Arguments& arguments ) -> Program::Value
+					   {
+						   requireArguments( { Program::Value::Type::Real, Program::Value::Type::Real }, arguments );
+						   return Program::Value{ ( arguments[ 0 ]->value( controller ).get< real >() ) +
+							   ( arguments[ 1 ]->value( controller ).get< real >() )};
+					   } ),
+		std::make_pair( "-", []( const DroneController& controller, const Program::FunctionExpression::Arguments& arguments ) -> Program::Value
+					   {
+						   if( arguments.size() == 1 )
+						   {
+							   return Program::Value{ -( arguments[ 0 ]->value( controller ).get< real >() ) };
+						   }
+						   else if( arguments.size() == 2 )
+						   {
+							   return Program::Value{ ( arguments[ 0 ]->value( controller ).get< real >() ) -
+								   ( arguments[ 1 ]->value( controller ).get< real >() )};
+						   }
+						   else
+						   {
+							   requireArguments( { Program::Value::Type::Real }, arguments );
+							   return Program::Value{ 0.0f };
+						   }
+					   } ),
 	};
 }
 
@@ -391,7 +425,10 @@ namespace ld
 			
 			while( in )
 			{
-				newAssignments.push_back( assignment( in ));
+				if( auto assign = assignment( in ))
+				{
+					newAssignments.push_back( assign );
+				}
 			}
 			
 			std::swap( m_assignments, newAssignments );

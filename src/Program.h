@@ -124,6 +124,16 @@ namespace ld
 			virtual Value value( const DroneController& controller ) const = 0;
 		};
 		
+		struct LiteralExpression : public Expression
+		{
+			Value m_value;
+			explicit LiteralExpression( const Value& value_ ) : m_value( value_ ) {}
+			virtual Value value( const DroneController& controller ) const
+			{
+				return m_value;
+			}
+		};
+		
 		struct FunctionExpression : public Expression
 		{
 			typedef std::vector< std::shared_ptr< Program::Expression >> Arguments;

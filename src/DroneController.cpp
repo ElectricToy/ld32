@@ -58,7 +58,7 @@ namespace ld
 	void DroneController::controlDirection( const Program::Value& value )
 	{
 		real direction = value.get< real >();
-		drone().applyControllerImpulse( vec2( direction, 0 ));
+		drone().applyControllerImpulse( vec2( sign( direction ), 0 ));
 	}
 	
 	void DroneController::controlFirePrimary( const Program::Value& value )
