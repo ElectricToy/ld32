@@ -7,6 +7,7 @@
 //
 
 #include "DroneController.h"
+#include "World.h"
 using namespace fr;
 
 namespace ld
@@ -16,8 +17,9 @@ namespace ld
 	FRESH_IMPLEMENT_STANDARD_CONSTRUCTOR_INERT( DroneController )
 	FRESH_CUSTOM_STANDARD_CONSTRUCTOR_NAMING( DroneController )
 	{
-		m_controls =
+		m_controls = m_defaultControls =
 		{
+			std::make_pair( "x", std::make_pair( Program::Value{ std::numeric_limits< real >::quiet_NaN() }, std::bind( &DroneController::controlTargetPosition, this, std::placeholders::_1 ))),
 			std::make_pair( "dir", std::make_pair( Program::Value{ 0.0f }, std::bind( &DroneController::controlDirection, this, std::placeholders::_1 ))),
 			std::make_pair( "fire", std::make_pair( Program::Value{ false }, std::bind( &DroneController::controlFirePrimary, this, std::placeholders::_1 ))),
 			std::make_pair( "missile", std::make_pair( Program::Value{ false }, std::bind( &DroneController::controlFireSecondary, this, std::placeholders::_1 ))),
@@ -28,6 +30,7 @@ namespace ld
 	{
 		m_program = createObject< Program >();
 		m_program->parse( programText );
+		m_controls = m_defaultControls;
 	}
 	
 	void DroneController::update()
@@ -38,6 +41,7 @@ namespace ld
 		//
 		m_sensorValues[ "x" ].set( drone().position().x );
 		m_sensorValues[ "dir" ].set( sign( drone().effectiveVelocity().x ));
+		m_sensorValues[ "time" ].set( static_cast< real >( drone().world().time() ));
 		
 		// Execute the program.
 		//
@@ -56,6 +60,24 @@ namespace ld
 		}
 	}
 
+	void DroneController::controlTargetPosition( const Program::Value& value )
+	{
+		const real targetX = value.get< real >();
+		
+		if( !isNaN( targetX ))
+		{
+			// Nullify direction. ('x' trumps 'dir')
+			//
+			m_controls[ "dir" ] = m_defaultControls[ "dir" ];
+			
+			real thrust = ( targetX - dronePos().x ) / 16.0f;
+			
+			thrust = clamp( thrust, -1.0f, 1.0f );
+			
+			drone().applyControllerImpulse( vec2( thrust, 0 ));
+		}
+	}
+	
 	void DroneController::controlDirection( const Program::Value& value )
 	{
 		real direction = value.get< real >();

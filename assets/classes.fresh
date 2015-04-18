@@ -52,7 +52,8 @@ class DroneDefault extends Drone {
 	scale 16
 	dimensions 24,32	// TODO!!!
 	airDrag 16
-	controllerImpulseScale 5000,0
+	airControl 1
+	controllerImpulseScale 2500,0
 	color 0080fd
 
 	shadowHostClass ShadowHost

@@ -29,13 +29,17 @@ namespace
 		Assign,
 		Terminator,
 		Separator,
-		InfixOperator,
+		BoolInfixOperator,
+		ArithmeticComparatorOperator,
+		LowArithmeticInfixOperator,
+		HighArithmeticInfixOperator,
 		PrefixOperator,
 		Minus,
 		EndOfFile,
 		
 		// Non-terminal tokens
 		
+		Term,
 		Expression,
 	};
 	
@@ -54,9 +58,13 @@ namespace
 			CASE( Terminator )
 			CASE( Separator )
 			CASE( Minus )
-			CASE( InfixOperator )
+			CASE( BoolInfixOperator )
+			CASE( ArithmeticComparatorOperator )
+			CASE( LowArithmeticInfixOperator )
+			CASE( HighArithmeticInfixOperator )
 			CASE( PrefixOperator )
 			CASE( EndOfFile )
+			CASE( Term )
 			CASE( Expression )
 			default: assert( false ); break;
 		}
@@ -162,15 +170,31 @@ if( !contents.empty() )	\
 				contents += c;
 				contents += lookahead;
 				in.get();
-				return Token{ TokenType::InfixOperator, contents };
+				return Token{ TokenType::ArithmeticComparatorOperator, contents };
 			}
-			else if( c == '<' || c == '>' || c == '+' )
+			else if( c == '<' || c == '>' )
 			{
 				CHECK_PENDING_IDENTIFIER
 				
 				assert( contents.empty() );
 				contents += c;
-				return Token{ TokenType::InfixOperator, contents };
+				return Token{ TokenType::ArithmeticComparatorOperator, contents };
+			}
+			else if( c == '+' )
+			{
+				CHECK_PENDING_IDENTIFIER
+				
+				assert( contents.empty() );
+				contents += c;
+				return Token{ TokenType::LowArithmeticInfixOperator, contents };
+			}
+			else if( c == '*' || c == '/' )
+			{
+				CHECK_PENDING_IDENTIFIER
+				
+				assert( contents.empty() );
+				contents += c;
+				return Token{ TokenType::HighArithmeticInfixOperator, contents };
 			}
 			else if(( c == '|' || c == '&' ) && c == lookahead )
 			{
@@ -180,7 +204,7 @@ if( !contents.empty() )	\
 				contents += c;
 				contents += lookahead;
 				in.get();
-				return Token{ TokenType::InfixOperator, contents };
+				return Token{ TokenType::BoolInfixOperator, contents };
 			}
 			else if( c == '!' )
 			{
@@ -232,20 +256,38 @@ if( !contents.empty() )	\
 		}
 	}
 
-	Token requireToken( std::istream& in, TokenType type )
+	std::ostream& operator<<( std::ostream& out, const std::initializer_list< TokenType >& types )
+	{
+		bool first = true;
+		for( const auto& type : types )
+		{
+			if( !first ) out << ", ";
+			out << type;
+			first = false;
+		}
+		
+		return out;
+	}
+
+	Token requireToken( std::istream& in, const std::initializer_list< TokenType >& types )
 	{
 		auto token = nextToken( in );
 		
-		if( token.type != type )
+		if( std::find( types.begin(), types.end(), token.type ) == types.end() )
 		{
-			throw createString( "You had \"" << token.contents << "\" (" << token.type << ") where " << type << " was expected." );;
+			throw createString( "You had \"" << token.contents << "\" (" << token.type << ") where " << types << " was expected." );;
 		}
 		
 		return token;
 	}
+
+	Token requireToken( std::istream& in, TokenType type )
+	{
+		return requireToken( in, { type } );
+	}
 	
 	Token expression( std::istream& in );
-	
+
 	Token functionExpression( std::istream& in, Token functionNameToken )
 	{
 		Program::FunctionExpression::Arguments arguments;
@@ -282,7 +324,13 @@ if( !contents.empty() )	\
 		
 		arguments.push_back( firstArgumentToken.expression );
 		
-		auto operatorToken = requireToken( in, TokenType::InfixOperator );
+		auto operatorToken = requireToken( in, {
+			TokenType::LowArithmeticInfixOperator,
+			TokenType::Minus,
+			TokenType::HighArithmeticInfixOperator,
+			TokenType::ArithmeticComparatorOperator,
+			TokenType::BoolInfixOperator,
+		});
 		
 		auto secondArgument = expression( in ).expression;
 		ASSERT( secondArgument );
@@ -291,6 +339,7 @@ if( !contents.empty() )	\
 		auto expression = std::make_shared< Program::FunctionExpression >( operatorToken.contents, std::move( arguments ));
 		return Token{ TokenType::Expression, "", expression };
 	}
+
 	
 	Token expression( std::istream& in )
 	{
@@ -312,8 +361,11 @@ if( !contents.empty() )	\
 					case TokenType::ParenOpen:
 						return functionExpression( in, token );
 						
-					case TokenType::InfixOperator:
+					case TokenType::LowArithmeticInfixOperator:
 					case TokenType::Minus:
+					case TokenType::HighArithmeticInfixOperator:		// TODO
+					case TokenType::ArithmeticComparatorOperator:		// TODO
+					case TokenType::BoolInfixOperator:					// TODO
 						return infixExpression( in, Token{ TokenType::Expression, "", std::make_shared< Program::SensorExpression >( token.contents ) } );
 						
 					default:
@@ -329,8 +381,11 @@ if( !contents.empty() )	\
 				auto peeked = peekToken( in );
 				switch( peeked.type )
 				{
-					case TokenType::InfixOperator:
+					case TokenType::LowArithmeticInfixOperator:
 					case TokenType::Minus:
+					case TokenType::HighArithmeticInfixOperator:		// TODO
+					case TokenType::ArithmeticComparatorOperator:		// TODO
+					case TokenType::BoolInfixOperator:					// TODO
 						return infixExpression( in, token );
 						
 					default:
@@ -437,6 +492,7 @@ if( !contents.empty() )	\
 					   } ),
 		std::make_pair( "-", []( const DroneController& controller, const Program::FunctionExpression::Arguments& arguments ) -> Program::Value
 					   {
+						   // TODO vec2.
 						   if( arguments.size() == 1 )
 						   {
 							   // Unary
@@ -454,6 +510,28 @@ if( !contents.empty() )	\
 							   return Program::Value{ 0.0f };
 						   }
 					   } ),
+		std::make_pair( "*", []( const DroneController& controller, const Program::FunctionExpression::Arguments& arguments ) -> Program::Value
+					   {
+						   requireArguments( { Program::Value::Type::Real, Program::Value::Type::Real }, arguments );
+						   return Program::Value{ ( arguments[ 0 ]->value( controller ).get< real >() ) *
+							   ( arguments[ 1 ]->value( controller ).get< real >() )};
+					   } ),
+		std::make_pair( "/", []( const DroneController& controller, const Program::FunctionExpression::Arguments& arguments ) -> Program::Value
+					   {
+						   requireArguments( { Program::Value::Type::Real, Program::Value::Type::Real }, arguments );
+						   return Program::Value{ ( arguments[ 0 ]->value( controller ).get< real >() ) *
+							   ( arguments[ 1 ]->value( controller ).get< real >() )};
+					   } ),
+		std::make_pair( "sin", []( const DroneController& controller, const Program::FunctionExpression::Arguments& arguments ) -> Program::Value
+					   {
+						   requireArguments( { Program::Value::Type::Real }, arguments );
+						   return Program::Value{ std::sin( arguments[ 0 ]->value( controller ).get< real >()) };
+					   } ),
+		std::make_pair( "cos", []( const DroneController& controller, const Program::FunctionExpression::Arguments& arguments ) -> Program::Value
+					   {
+						   requireArguments( { Program::Value::Type::Real }, arguments );
+						   return Program::Value{ std::cos( arguments[ 0 ]->value( controller ).get< real >()) };
+					   } ),
 		std::make_pair( "if", []( const DroneController& controller, const Program::FunctionExpression::Arguments& arguments ) -> Program::Value
 					   {
 						   requireArguments( { Program::Value::Type::Bool, Program::Value::Type::Undefined, Program::Value::Type::Undefined }, arguments );
@@ -461,6 +539,16 @@ if( !contents.empty() )	\
 							   ( arguments[ 0 ]->value( controller ).get< bool >() ) ?
 							     arguments[ 1 ]->value( controller ) :
 							     arguments[ 2 ]->value( controller )};
+					   } ),
+		std::make_pair( "awayfrom", []( const DroneController& controller, const Program::FunctionExpression::Arguments& arguments ) -> Program::Value
+					   {
+						   requireArguments( { Program::Value::Type::Real }, arguments );
+						   return Program::Value{ controller.dronePos().x - arguments[ 0 ]->value( controller ).get< real >() };
+					   } ),
+		std::make_pair( "toward", []( const DroneController& controller, const Program::FunctionExpression::Arguments& arguments ) -> Program::Value
+					   {
+						   requireArguments( { Program::Value::Type::Real }, arguments );
+						   return Program::Value{ arguments[ 0 ]->value( controller ).get< real >() - controller.dronePos().x };
 					   } ),
 	};
 }

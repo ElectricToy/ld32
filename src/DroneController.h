@@ -22,6 +22,8 @@ namespace ld
 		FRESH_DECLARE_CLASS( DroneController, FreshActorController );
 	public:
 		
+		const vec2& dronePos() const { return drone().position(); }
+		
 		void loadProgramText( const std::string& programText );
 		
 		bool hasSensor( const std::string& sensorName ) const
@@ -73,7 +75,8 @@ namespace ld
 		}
 		
 	protected:
-		
+
+		void controlTargetPosition( const Program::Value& value );
 		void controlDirection( const Program::Value& value );
 		void controlFirePrimary( const Program::Value& value );
 		void controlFireSecondary( const Program::Value& value );
@@ -87,7 +90,7 @@ namespace ld
 
 		typedef std::map< std::string, std::pair< Program::Value, std::function< void( const Program::Value& ) >>> Controls;
 		Controls m_controls;
-		
+		Controls m_defaultControls;
 	};
 }
 
