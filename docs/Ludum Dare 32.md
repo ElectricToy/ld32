@@ -179,6 +179,24 @@ or
 
     direction = away_from( closer_of( bullets + enemies ))
 
+## Grammar
+
+expression :=
+    ( expression )
+    IDENTIFIER ( argument_list  )
+    IDENTIFIER INFIX expression
+    IDENTIFIER
+    NUMBER INFIX expression
+    PREFIX expression
+    NUMBER
+
+
+argument_list
+    O
+    argument_list expression
+
+
+
 ## Literals
 
 real

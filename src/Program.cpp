@@ -21,11 +21,13 @@ namespace
 	
 	enum class TokenType
 	{
+		Null,
 		Number,
 		Identifier,
 		ParenOpen,
 		ParenClose,
 		Assign,
+		Terminator,
 		InfixOperator,
 		PrefixOperator,
 		Minus,
@@ -42,11 +44,13 @@ namespace
 	{
 		switch( type )
 		{
+			CASE( Null )
 			CASE( Number )
 			CASE( Identifier )
 			CASE( ParenOpen )
 			CASE( ParenClose )
 			CASE( Assign )
+			CASE( Terminator )
 			CASE( Minus )
 			CASE( InfixOperator )
 			CASE( PrefixOperator )
@@ -63,6 +67,7 @@ namespace
 	{
 		TokenType type;
 		std::string contents;
+		std::shared_ptr< Program::Expression > expression;
 	};
 	
 	inline Token numberOrIdentifier( std::string&& contents )
@@ -130,6 +135,14 @@ if( !contents.empty() )	\
 				assert( contents.empty() );
 				contents += c;
 				return Token{ TokenType::Assign, contents };
+			}
+			else if( c == ';' )
+			{
+				CHECK_PENDING_IDENTIFIER
+				
+				assert( contents.empty() );
+				contents += c;
+				return Token{ TokenType::Terminator, contents };
 			}
 			else if(( c == '<' || c == '>' ) && lookahead == '=' )
 			{
@@ -217,9 +230,9 @@ if( !contents.empty() )	\
 		return token;
 	}
 	
-	std::shared_ptr< Program::Expression > expression( std::istream& in );
+	Token expression( std::istream& in );
 	
-	std::shared_ptr< Program::Expression > functionExpression( std::istream& in, Token functionNameToken )
+	Token functionExpression( std::istream& in, Token functionNameToken )
 	{
 		Program::FunctionExpression::Arguments arguments;
 
@@ -227,51 +240,43 @@ if( !contents.empty() )	\
 		
 		while( peekToken( in ).type != TokenType::ParenClose )
 		{
-			arguments.push_back( std::move( expression( in )));
+			arguments.push_back( std::move( expression( in ).expression ));
 		}
 		
 		requireToken( in, TokenType::ParenClose );
 		
 		auto expression = std::make_shared< Program::FunctionExpression >( functionNameToken.contents, std::move( arguments ));
-		return expression;
+		return Token{ TokenType::Expression, "", expression };
 	}
 
-	std::shared_ptr< Program::Expression > unaryOperatorExpression( std::istream& in, Token operatorToken )
+	Token unaryOperatorExpression( std::istream& in, Token operatorToken )
 	{
 		Program::FunctionExpression::Arguments arguments;
-		arguments.push_back( expression( in ));
-		return std::make_shared< Program::FunctionExpression >( operatorToken.contents, std::move( arguments ));
+		arguments.push_back( expression( in ).expression );
+		auto expression = std::make_shared< Program::FunctionExpression >( operatorToken.contents, std::move( arguments ));
+		return Token{ TokenType::Expression, "", expression };
 	}
 
-	std::shared_ptr< Program::Expression > infixExpression( std::istream& in, Token firstArgumentToken )
+	Token infixExpression( std::istream& in, Token firstArgumentToken )
 	{
 		Program::FunctionExpression::Arguments arguments;
 		
-		arguments.push_back( std::make_shared< Program::SensorExpression >( firstArgumentToken.contents ));
+		arguments.push_back( firstArgumentToken.expression );
 		
 		auto operatorToken = requireToken( in, TokenType::InfixOperator );
 		
-		auto rhs = expression( in );
-		arguments.push_back( rhs );
+		arguments.push_back( expression( in ).expression );
 		
 		auto expression = std::make_shared< Program::FunctionExpression >( operatorToken.contents, std::move( arguments ));
-		return expression;
+		return Token{ TokenType::Expression, "", expression };
 	}
 	
-	std::shared_ptr< Program::Expression > expression( std::istream& in )
+	Token expression( std::istream& in )
 	{
 		auto token = nextToken( in );
-		
+
 		switch( token.type )
 		{
-			case TokenType::Number:
-			{
-				std::istringstream in( token.contents );
-				real number;
-				in >> number;
-				return std::make_shared< Program::LiteralExpression >( Program::Value{ number });
-			}
-				
 			case TokenType::ParenOpen:
 			{
 				auto expr = expression( in );
@@ -280,28 +285,37 @@ if( !contents.empty() )	\
 			}
 			case TokenType::Identifier:
 			{
-				auto peeked = peekToken( in );
-				
-				switch( peeked.type )
-				{
-					case TokenType::ParenOpen:
-						return functionExpression( in, token );
-						
-					case TokenType::InfixOperator:
-					case TokenType::Minus:
-						return infixExpression( in, token );
-						
-					default:
-						return std::make_shared< Program::SensorExpression >( token.contents );;
-				}
+				token = Token{ TokenType::Expression, "", std::make_shared< Program::SensorExpression >( token.contents ) };
+				break;
+			}
+			case TokenType::Number:
+			{
+				std::istringstream in( token.contents );
+				real number;
+				in >> number;
+				token = Token{ TokenType::Expression, token.contents, std::make_shared< Program::LiteralExpression >( Program::Value{ number }) };
+				break;
 			}
 			case TokenType::Minus:
 			case TokenType::PrefixOperator:
 				return unaryOperatorExpression( in, token );
-				break;
+
+			default:
+				return token;
+		}
+		
+		auto peeked = peekToken( in );
+		switch( peeked.type )
+		{
+			case TokenType::ParenOpen:
+				return functionExpression( in, token );
+				
+			case TokenType::InfixOperator:
+			case TokenType::Minus:
+				return infixExpression( in, token );
 				
 			default:
-				throw createString( "You had \"" << token.contents << "\" when it wasn't expected." );
+				return token;
 		}
 	}
 	
@@ -315,9 +329,13 @@ if( !contents.empty() )	\
 		auto control = requireToken( in, TokenType::Identifier );
 
 		requireToken( in, TokenType::Assign );
+
+		Token lastToken{ TokenType::Null };
 		
 		auto valueExpression = expression( in );
-		return std::make_shared< Program::Assignment >( control.contents, valueExpression );
+		ASSERT( valueExpression.type == TokenType::Expression );
+		ASSERT( valueExpression.expression );
+		return std::make_shared< Program::Assignment >( control.contents, valueExpression.expression );
 	}
 	
 	typedef std::map< std::string,
@@ -328,7 +346,7 @@ if( !contents.empty() )	\
 	{
 //		for( size_t i = 0; i < std::min( expectedArgumentTypes.size(), givenArguments.size() ); ++i )
 //		{
-//			if( expectedArgumentTypes[ i ] != givenArguments[ i ]->valueType )
+//			if( expectedArgumentTypes[ i ] != Program::Value::Type::Undefined && expectedArgumentTypes[ i ] != givenArguments[ i ]->valueType )
 //			{
 //			}
 //		}
@@ -394,10 +412,12 @@ if( !contents.empty() )	\
 					   {
 						   if( arguments.size() == 1 )
 						   {
+							   // Unary
 							   return Program::Value{ -( arguments[ 0 ]->value( controller ).get< real >() ) };
 						   }
 						   else if( arguments.size() == 2 )
 						   {
+							   // Binary
 							   return Program::Value{ ( arguments[ 0 ]->value( controller ).get< real >() ) -
 								   ( arguments[ 1 ]->value( controller ).get< real >() )};
 						   }
@@ -406,6 +426,14 @@ if( !contents.empty() )	\
 							   requireArguments( { Program::Value::Type::Real }, arguments );
 							   return Program::Value{ 0.0f };
 						   }
+					   } ),
+		std::make_pair( "if", []( const DroneController& controller, const Program::FunctionExpression::Arguments& arguments ) -> Program::Value
+					   {
+						   requireArguments( { Program::Value::Type::Bool, Program::Value::Type::Undefined, Program::Value::Type::Undefined }, arguments );
+						   return Program::Value{
+							   ( arguments[ 0 ]->value( controller ).get< bool >() ) ?
+							     arguments[ 1 ]->value( controller ) :
+							     arguments[ 2 ]->value( controller )};
 					   } ),
 	};
 }
@@ -417,6 +445,7 @@ namespace ld
 	
 	void Program::parse( const std::string& program )
 	{
+		g_peekedToken.reset();
 		try
 		{
 			std::istringstream in( program );
@@ -429,6 +458,10 @@ namespace ld
 				{
 					newAssignments.push_back( assign );
 				}
+				else
+				{
+					break;
+				}
 			}
 			
 			std::swap( m_assignments, newAssignments );
@@ -439,6 +472,7 @@ namespace ld
 		{
 			release_error( e );
 		}
+		g_peekedToken.reset();
 	}
 	
 	void Program::execute( DroneController& controller )
