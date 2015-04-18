@@ -6,13 +6,14 @@ object AppStage theStage {
 
 	children [
 
-		object WorldDefault {
-
+		object DisplayObjectContainer $^_worldHost {
+			children [
+				object WorldDefault $^_world {
+				}
+			]
 		}
 
-		object HUD {
-
+		object HUDDefault {
 		}
-
 	]
 }

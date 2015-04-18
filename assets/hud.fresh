@@ -1,32 +1,51 @@
+class DragThing extends Sprite {
+	texture Texture'white_simple'
+	scale 160,4
+	color White
+	isTouchEnabled true
+	isDragEnabled true
+	doMoveWithDrag true
+
+	position 0,40
+}
 
 class Overlay extends UIPopup {
+	isTouchEnabled false
+	ignoreFrameAttachment false
+	parentFrameAttachPoint "0,-1"
 	startHidden false
 	texture Texture'white_simple'
 	scale 160,32
-	color DarkBlue
+	color 40404050
+	blendMode Alpha
 }
 
-class ProgrammingArea extends UIPopup {
+class ProgrammingAreaDefault extends ProgrammingArea {
 	startHidden false
-	texture Texture'white_simple'
-	scale 160,160
-	color DarkRed
+
+	children [
+		object Sprite $^_background {
+			texture Texture'white_simple'
+			scale 160,64
+
+			color DarkRed
+		}
+	]
 }
 
-class HUD extends UIPopup {
+class HUDDefault extends HUD {
+	isTouchEnabled true
 	startHidden false
 	inheritParentFrame true
 	children [
 
 		object Overlay $^_overlay {
-			ignoreFrameAttachment false
-			parentFrameAttachPoint "0,-1"
 		}
 
-		object ProgrammingArea $^_programmingArea {
-			ignoreFrameAttachment false
-			parentFrameAttachPoint "0,1"
+		object ProgrammingAreaDefault $^_programmingArea {
 		}
+
+		object DragThing $^_dragThing {	
+		}		
 	]
 }
-

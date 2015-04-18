@@ -16,7 +16,6 @@ object TextureLoaderConfigured uni05_53_8 {
 
 object TextureLoaderConfigured background {
 	filePath background
-	clampModeU Wrap
 	clampModeV Wrap
 }
 

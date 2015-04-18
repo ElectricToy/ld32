@@ -2,22 +2,51 @@
 
 include assets/hud.fresh
 
-class Drone extends MovieClip {
+class Drone extends FreshActor {
 	texture Texture'white_simple'
 	scale 16
 }
 
-
-class WorldDefault extends MovieClip {
+class WorldDefault extends World {
 	children [
-		object SpriteBackground {
-			texture Texture'background'
-			scale 0.125
-			position 0.5,0
-			velocity "0,0.03125"
-			trackingObject WorldDefault'$^^'
+		object MovieClip $^_background {
+			children [
+				object Sprite $^_scroller {
+					children [
+						object Sprite $^_scrolled {
+							texture Texture'background'
+							scale 4
+						}
+					]
+				}
+			]
+
+			passthrough [
+				object keyframe {
+					children [
+						object child $1 {							
+						}
+					]
+					tween object Linear {							
+					}					
+				}
+				object keyframe {
+					rel_s 40
+					children [
+						object child $1 {
+							position 0,1024
+						}
+					]
+				}
+			]
 		}
-		object Drone {
+
+		object DisplayObjectContainer $^_actorHost {
+			children [
+				object Drone {
+					position 0,-28
+				}
+			]
 		}
 	]
 }

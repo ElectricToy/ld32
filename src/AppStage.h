@@ -11,6 +11,8 @@
 
 #include "Essentials.h"
 #include "Stage.h"
+#include "World.h"
+#include "HUD.h"
 
 namespace ld
 {
@@ -20,7 +22,22 @@ namespace ld
 		FRESH_DECLARE_CLASS( AppStage, Stage );
 	public:
 		
-		// TODO
+		virtual void update() override
+		{
+			Super::update();
+			
+			world().parent()->position( vec2( 0, hud().programmingArea().top() ));
+		}
+		
+		HUD& hud() const
+		{
+			return getExpectedDescendant< HUD >( *this );
+		}
+		
+		World& world() const
+		{
+			return getExpectedDescendant< World >( *this, "_world" );
+		}
 		
 	private:
 		

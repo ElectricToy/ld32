@@ -21,6 +21,9 @@
 #include "DisplayPackage.h"
 #include "AudioSystem.h"
 #include "StructSerialization.h"
+#include "UIPopup.h"
+#include "SimpleButton.h"
+#include "Stage.h"
 
 #if FRESH_TELEMETRY_ENABLED
 #	include "UserTelemetry.h"
@@ -58,6 +61,14 @@ namespace ld
 	using fr::ObjectId;
 	using fr::ClassFilter;
 	using fr::dynamic_freshptr_cast;
+	
+	template< typename T = fr::DisplayObject >
+	T& getExpectedDescendant( const fr::DisplayObjectContainer& host, const std::string& nameSubstring = "" )
+	{
+		fr::SmartPtr< T > descendant = host.getDescendantByName< T >( nameSubstring, fr::DisplayObjectContainer::NameSearchPolicy::Substring );
+		ASSERT( descendant );
+		return *descendant;
+	}
 }
 
 #endif

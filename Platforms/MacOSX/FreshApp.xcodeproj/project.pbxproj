@@ -27,6 +27,9 @@
 		1FE0FE63192EFADD00B86F2F /* libFreshScene2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE0FE4B192EFA9700B86F2F /* libFreshScene2D.a */; };
 		1FE0FE64192EFADD00B86F2F /* libFreshTelemetry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE0FE4D192EFA9700B86F2F /* libFreshTelemetry.a */; };
 		1FE0FE65192EFADD00B86F2F /* libtinyxml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE0FE4F192EFA9700B86F2F /* libtinyxml.a */; };
+		1FE1CC6C1AE2033C00CDE8F1 /* World.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1CC6A1AE2033C00CDE8F1 /* World.cpp */; };
+		1FE1CC701AE204D200CDE8F1 /* HUD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1CC6E1AE204D200CDE8F1 /* HUD.cpp */; };
+		1FE1CC731AE2068100CDE8F1 /* ProgrammingArea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1CC711AE2068100CDE8F1 /* ProgrammingArea.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,6 +148,12 @@
 		1FB348ED1A2D0D0300536EC8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = FreshApp/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		1FB348EF1A2D0D0300536EC8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = FreshApp/en.lproj/MainMenu.xib; sourceTree = SOURCE_ROOT; };
 		1FE0FE3B192EFA9700B86F2F /* Fresh.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Fresh.xcodeproj; path = ../../../Fresh/Platforms/MacOSX/Fresh.xcodeproj; sourceTree = "<group>"; };
+		1FE1CC6A1AE2033C00CDE8F1 /* World.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = World.cpp; sourceTree = "<group>"; };
+		1FE1CC6B1AE2033C00CDE8F1 /* World.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = World.h; sourceTree = "<group>"; };
+		1FE1CC6E1AE204D200CDE8F1 /* HUD.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HUD.cpp; sourceTree = "<group>"; };
+		1FE1CC6F1AE204D200CDE8F1 /* HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUD.h; sourceTree = "<group>"; };
+		1FE1CC711AE2068100CDE8F1 /* ProgrammingArea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProgrammingArea.cpp; sourceTree = "<group>"; };
+		1FE1CC721AE2068100CDE8F1 /* ProgrammingArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgrammingArea.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,6 +246,12 @@
 				1F51FBE91A324548008EEAA1 /* AppStage.h */,
 				1F51FBEA1A324548008EEAA1 /* Essentials.h */,
 				1F8BF06418C67355007C5E7F /* main.cpp */,
+				1FE1CC6A1AE2033C00CDE8F1 /* World.cpp */,
+				1FE1CC6B1AE2033C00CDE8F1 /* World.h */,
+				1FE1CC6E1AE204D200CDE8F1 /* HUD.cpp */,
+				1FE1CC6F1AE204D200CDE8F1 /* HUD.h */,
+				1FE1CC711AE2068100CDE8F1 /* ProgrammingArea.cpp */,
+				1FE1CC721AE2068100CDE8F1 /* ProgrammingArea.h */,
 			);
 			name = src;
 			path = ../../src;
@@ -404,7 +419,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F51FBEB1A324548008EEAA1 /* AppStage.cpp in Sources */,
+				1FE1CC701AE204D200CDE8F1 /* HUD.cpp in Sources */,
 				1F8BF06618C67355007C5E7F /* main.cpp in Sources */,
+				1FE1CC731AE2068100CDE8F1 /* ProgrammingArea.cpp in Sources */,
+				1FE1CC6C1AE2033C00CDE8F1 /* World.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
