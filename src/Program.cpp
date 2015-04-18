@@ -28,6 +28,7 @@ namespace
 		ParenClose,
 		Assign,
 		Terminator,
+		Separator,
 		InfixOperator,
 		PrefixOperator,
 		Minus,
@@ -51,6 +52,7 @@ namespace
 			CASE( ParenClose )
 			CASE( Assign )
 			CASE( Terminator )
+			CASE( Separator )
 			CASE( Minus )
 			CASE( InfixOperator )
 			CASE( PrefixOperator )
@@ -72,11 +74,11 @@ namespace
 	
 	inline Token numberOrIdentifier( std::string&& contents )
 	{
-		std::istringstream in( contents );
+		std::istringstream destringifier( contents );
 		real number;
-		in >> number;
+		destringifier >> number;
 		
-		TokenType type = !in.fail() ? TokenType::Number : TokenType::Identifier;
+		TokenType type = !destringifier.fail() ? TokenType::Number : TokenType::Identifier;
 		return Token{ type, std::move( contents )};
 	}
 	
@@ -144,6 +146,14 @@ if( !contents.empty() )	\
 				contents += c;
 				return Token{ TokenType::Terminator, contents };
 			}
+			else if( c == ',' )
+			{
+				CHECK_PENDING_IDENTIFIER
+				
+				assert( contents.empty() );
+				contents += c;
+				return Token{ TokenType::Separator, contents };
+			}
 			else if(( c == '<' || c == '>' ) && lookahead == '=' )
 			{
 				CHECK_PENDING_IDENTIFIER
@@ -200,6 +210,10 @@ if( !contents.empty() )	\
 			contents += c;
 		}
 		
+		if( contents.empty() == false )
+		{
+			return numberOrIdentifier( std::move( contents ));
+		}
 		return Token{ TokenType::EndOfFile };
 	}
 
@@ -241,6 +255,11 @@ if( !contents.empty() )	\
 		while( peekToken( in ).type != TokenType::ParenClose )
 		{
 			arguments.push_back( std::move( expression( in ).expression ));
+			
+			if( peekToken( in ).type == TokenType::Separator )
+			{
+				nextToken( in );
+			}
 		}
 		
 		requireToken( in, TokenType::ParenClose );
@@ -265,7 +284,9 @@ if( !contents.empty() )	\
 		
 		auto operatorToken = requireToken( in, TokenType::InfixOperator );
 		
-		arguments.push_back( expression( in ).expression );
+		auto secondArgument = expression( in ).expression;
+		ASSERT( secondArgument );
+		arguments.push_back( secondArgument );
 		
 		auto expression = std::make_shared< Program::FunctionExpression >( operatorToken.contents, std::move( arguments ));
 		return Token{ TokenType::Expression, "", expression };
@@ -285,35 +306,41 @@ if( !contents.empty() )	\
 			}
 			case TokenType::Identifier:
 			{
-				token = Token{ TokenType::Expression, "", std::make_shared< Program::SensorExpression >( token.contents ) };
-				break;
+				auto peeked = peekToken( in );
+				switch( peeked.type )
+				{
+					case TokenType::ParenOpen:
+						return functionExpression( in, token );
+						
+					case TokenType::InfixOperator:
+					case TokenType::Minus:
+						return infixExpression( in, Token{ TokenType::Expression, "", std::make_shared< Program::SensorExpression >( token.contents ) } );
+						
+					default:
+						return Token{ TokenType::Expression, "", std::make_shared< Program::SensorExpression >( token.contents ) };
+				}
 			}
 			case TokenType::Number:
 			{
-				std::istringstream in( token.contents );
+				std::istringstream destringifier( token.contents );
 				real number;
-				in >> number;
+				destringifier >> number;
 				token = Token{ TokenType::Expression, token.contents, std::make_shared< Program::LiteralExpression >( Program::Value{ number }) };
-				break;
+				auto peeked = peekToken( in );
+				switch( peeked.type )
+				{
+					case TokenType::InfixOperator:
+					case TokenType::Minus:
+						return infixExpression( in, token );
+						
+					default:
+						return token;
+				}
 			}
 			case TokenType::Minus:
 			case TokenType::PrefixOperator:
 				return unaryOperatorExpression( in, token );
 
-			default:
-				return token;
-		}
-		
-		auto peeked = peekToken( in );
-		switch( peeked.type )
-		{
-			case TokenType::ParenOpen:
-				return functionExpression( in, token );
-				
-			case TokenType::InfixOperator:
-			case TokenType::Minus:
-				return infixExpression( in, token );
-				
 			default:
 				return token;
 		}

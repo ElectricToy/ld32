@@ -18,7 +18,7 @@ namespace ld
 	{
 		m_controls =
 		{
-			std::make_pair( "direction", std::make_pair( Program::Value{ 0.0f }, std::bind( &DroneController::controlDirection, this, std::placeholders::_1 ))),
+			std::make_pair( "dir", std::make_pair( Program::Value{ 0.0f }, std::bind( &DroneController::controlDirection, this, std::placeholders::_1 ))),
 			std::make_pair( "fire", std::make_pair( Program::Value{ false }, std::bind( &DroneController::controlFirePrimary, this, std::placeholders::_1 ))),
 			std::make_pair( "missile", std::make_pair( Program::Value{ false }, std::bind( &DroneController::controlFireSecondary, this, std::placeholders::_1 ))),
 		};
@@ -37,6 +37,7 @@ namespace ld
 		// Load sensors.
 		//
 		m_sensorValues[ "x" ].set( drone().position().x );
+		m_sensorValues[ "dir" ].set( sign( drone().effectiveVelocity().x ));
 		
 		// Execute the program.
 		//
