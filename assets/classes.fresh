@@ -10,7 +10,7 @@ class MuzzleFlash extends ParticleEmitter {
 	particleTexture Texture'muzzle_flash'
 	startingParticles 1
 	destroyWhenAllDead true
-	cycleDuration 0.1
+	cycleDuration 0.05
 	baseScale 11
 	creationSpawnBurst true
 	creationPauseAfterBurst true
@@ -23,14 +23,18 @@ class MuzzleFlash extends ParticleEmitter {
 
 class BulletMachineGun extends Bullet {
 	texture Texture'white_simple'
-	scale 2
+	scale 1,8
+	pivot 0,1
 	velocity 0,-2000
 	lifespan 60
+	color DarkGray
 }
 
 class WeaponMachineGuns extends Weapon {
+	fireDelay 0.1
 	shots [
-		"{MuzzleFlash, (0), BulletMachineGun, (0)}"
+		"{MuzzleFlash, (12,-10), BulletMachineGun, (12,-10)}"
+		"{MuzzleFlash, (-12,-10), BulletMachineGun, (-12,-10)}"
 	]
 }
 

@@ -6,7 +6,7 @@ class DragThing extends Sprite {
 	isDragEnabled true
 	doMoveWithDrag true
 
-	position 0,40
+	position 0,120
 }
 
 class Overlay extends UIPopup {

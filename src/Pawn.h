@@ -23,13 +23,13 @@ namespace ld
 		
 		virtual void update() override
 		{
+			Super::update();
+			
 			for( auto weapon : m_weapons )
 			{
 				weapon->owner( this );
 				weapon->update();
 			}
-			
-			Super::update();
 		}
 		
 		bool canFireWeapon( size_t i ) const

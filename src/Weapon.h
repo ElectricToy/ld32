@@ -68,6 +68,8 @@ namespace ld
 		{
 			if( m_shots.empty() == false )
 			{
+				m_lastFireTime = world().time();
+				
 				const auto& shot = m_shots[ m_currentShot % m_shots.size() ];
 				++m_currentShot;
 				
