@@ -11,10 +11,10 @@
 
 #include "Essentials.h"
 #include "Actor.h"
-#include "World.h"
 
 namespace ld
 {
+	class World;
 	
 	class Weapon : public fr::Object
 	{
@@ -31,11 +31,7 @@ namespace ld
 			}
 		}
 		
-		virtual bool canFire()
-		{
-			return world().time() >= m_lastFireTime + m_fireDelay;
-		}
-		
+		virtual bool canFire();
 		virtual void setTrigger( bool trigger )
 		{
 			m_firing = trigger;
@@ -64,39 +60,7 @@ namespace ld
 		
 		typedef std::tuple< ClassInfo::cptr, vec2, ClassInfo::cptr, vec2 > Shot;
 		
-		virtual void reallyFire()
-		{
-			if( m_shots.empty() == false )
-			{
-				m_lastFireTime = world().time();
-				
-				const auto& shot = m_shots[ m_currentShot % m_shots.size() ];
-				++m_currentShot;
-				
-				const ClassInfo::cptr& muzzleFlashClass = std::get< 0 >( shot );
-				const vec2& muzzleFlashOffset = std::get< 1 >( shot );
-				const ClassInfo::cptr& bulletClass = std::get< 2 >( shot );
-				const vec2& bulletOffset = std::get< 3 >( shot );
-				
-				// Spawn muzzle flash.
-				//
-				if( muzzleFlashClass )
-				{
-					auto muzzleFlash = fr::createObject< fr::DisplayObject >( *muzzleFlashClass );
-					muzzleFlash->position( owner().position() + muzzleFlashOffset );
-					owner().parent()->addChild( muzzleFlash );
-				}
-				
-				// Spawn bullet.
-				//
-				if( bulletClass )
-				{
-					auto bullet = fr::createObject< Actor >( *bulletClass );
-					bullet->position( owner().position() + bulletOffset );
-					owner().parent()->addChild( bullet );
-				}
-			}
-		}
+		virtual void reallyFire();
 		
 	private:
 		

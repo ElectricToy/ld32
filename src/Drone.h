@@ -14,7 +14,6 @@
 
 namespace ld
 {
-	
 	class Drone : public Pawn
 	{
 		FRESH_DECLARE_CLASS( Drone, Pawn );

@@ -36,6 +36,8 @@
 		1FE1CC7F1AE2186900CDE8F1 /* Weapon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1CC7D1AE2186900CDE8F1 /* Weapon.cpp */; };
 		1FE1CC821AE21DDF00CDE8F1 /* Pawn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1CC801AE21DDF00CDE8F1 /* Pawn.cpp */; };
 		1FE1CC861AE2253900CDE8F1 /* Bullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1CC841AE2253900CDE8F1 /* Bullet.cpp */; };
+		1FE1CC8C1AE23F4C00CDE8F1 /* Program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1CC8A1AE23F4C00CDE8F1 /* Program.cpp */; };
+		1FE1CC8F1AE2625E00CDE8F1 /* ProgrammingEditBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1CC8D1AE2625E00CDE8F1 /* ProgrammingEditBox.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,6 +174,10 @@
 		1FE1CC811AE21DDF00CDE8F1 /* Pawn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pawn.h; sourceTree = "<group>"; };
 		1FE1CC841AE2253900CDE8F1 /* Bullet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bullet.cpp; sourceTree = "<group>"; };
 		1FE1CC851AE2253900CDE8F1 /* Bullet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bullet.h; sourceTree = "<group>"; };
+		1FE1CC8A1AE23F4C00CDE8F1 /* Program.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Program.cpp; sourceTree = "<group>"; };
+		1FE1CC8B1AE23F4C00CDE8F1 /* Program.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Program.h; sourceTree = "<group>"; };
+		1FE1CC8D1AE2625E00CDE8F1 /* ProgrammingEditBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProgrammingEditBox.cpp; sourceTree = "<group>"; };
+		1FE1CC8E1AE2625E00CDE8F1 /* ProgrammingEditBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgrammingEditBox.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,8 +282,12 @@
 				1F8BF06418C67355007C5E7F /* main.cpp */,
 				1FE1CC801AE21DDF00CDE8F1 /* Pawn.cpp */,
 				1FE1CC811AE21DDF00CDE8F1 /* Pawn.h */,
+				1FE1CC8A1AE23F4C00CDE8F1 /* Program.cpp */,
+				1FE1CC8B1AE23F4C00CDE8F1 /* Program.h */,
 				1FE1CC711AE2068100CDE8F1 /* ProgrammingArea.cpp */,
 				1FE1CC721AE2068100CDE8F1 /* ProgrammingArea.h */,
+				1FE1CC8D1AE2625E00CDE8F1 /* ProgrammingEditBox.cpp */,
+				1FE1CC8E1AE2625E00CDE8F1 /* ProgrammingEditBox.h */,
 				1FE1CC7D1AE2186900CDE8F1 /* Weapon.cpp */,
 				1FE1CC7E1AE2186900CDE8F1 /* Weapon.h */,
 				1FE1CC6A1AE2033C00CDE8F1 /* World.cpp */,
@@ -448,12 +458,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FE1CC8C1AE23F4C00CDE8F1 /* Program.cpp in Sources */,
 				1F51FBEB1A324548008EEAA1 /* AppStage.cpp in Sources */,
 				1FE1CC701AE204D200CDE8F1 /* HUD.cpp in Sources */,
 				1F8BF06618C67355007C5E7F /* main.cpp in Sources */,
 				1FE1CC7C1AE217B100CDE8F1 /* Actor.cpp in Sources */,
 				1FE1CC731AE2068100CDE8F1 /* ProgrammingArea.cpp in Sources */,
 				1FE1CC761AE20FD300CDE8F1 /* DroneController.cpp in Sources */,
+				1FE1CC8F1AE2625E00CDE8F1 /* ProgrammingEditBox.cpp in Sources */,
 				1FE1CC6C1AE2033C00CDE8F1 /* World.cpp in Sources */,
 				1FE1CC861AE2253900CDE8F1 /* Bullet.cpp in Sources */,
 				1FE1CC7F1AE2186900CDE8F1 /* Weapon.cpp in Sources */,

@@ -54,7 +54,7 @@ class ProgrammingTextCaret extends MovieClip {
 			}
 		}
 		object keyframe {
-			s 0.5
+			s 0.25
 			children [
 				object child $1 {
 					color Invisible
@@ -64,7 +64,7 @@ class ProgrammingTextCaret extends MovieClip {
 			}
 		}
 		object keyframe {
-			s 2
+			s 1
 			children [
 				object child $1 {
 					color White
@@ -76,7 +76,7 @@ class ProgrammingTextCaret extends MovieClip {
 	]
 }
 
-class ProgrammingTextField extends UIEditBox {
+class ProgrammingEditBoxDefault extends ProgrammingEditBox {
 	multiline true
 	textClass ProgrammingText
 	caretClass ProgrammingTextCaret
@@ -97,7 +97,7 @@ class ProgrammingAreaDefault extends ProgrammingArea {
 			color DarkRed
 		}
 
-		object ProgrammingTextField $^_editBox {			
+		object ProgrammingEditBoxDefault $^_editBox {			
 		}
 	]
 }

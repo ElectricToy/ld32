@@ -10,49 +10,19 @@
 #define FreshApp_Actor_h
 
 #include "Essentials.h"
-#include "World.h"
 
 namespace ld
 {
+	class World;
 	
 	class Actor : public fr::FreshActor
 	{
 		FRESH_DECLARE_CLASS( Actor, FreshActor );
 	public:
 		
-		World& world() const
-		{
-			const auto ancestor = fr::firstAncestorOfType< World >( *this );
-			ASSERT( ancestor );
-			return *ancestor;
-		}
+		World& world() const;
 		
-		virtual void update()
-		{
-			Super::update();
-			
-			if( m_shadowHost )
-			{
-				if( !m_shadowHost->parent() )
-				{
-					world().shadowLand().addChild( m_shadowHost );
-				}
-				
-				m_shadowHost->position( position() + m_shadowOffset );
-				
-				if( m_shadowHost->numChildren() > 0 )
-				{
-					if( auto shadow = m_shadowHost->getChildAt( 0 )->as< Sprite >() )
-					{
-						shadow->blendMode( fr::Renderer::BlendMode::Alpha );
-						shadow->texture( texture() );
-						shadow->pivot( pivot() );
-						shadow->scale( scale() );
-					}
-				}
-			}
-		}
-		
+		virtual void update() override;
 		virtual void onAddedToStage()
 		{
 			Super::onAddedToStage();

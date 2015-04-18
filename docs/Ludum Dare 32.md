@@ -212,11 +212,17 @@ vec2 abs( vec2 )
 real sign( real )
 vec2 sign( vec2 )
 
-bool operator<( real, real )
-bool operator<=( real, real )
-bool operator>( real, real )
-bool operator>=( real, real )
+bool operator<( real real )
+bool operator<=( real real )
+bool operator>( real real )
+bool operator>=( real real )
 
 operator&&
 operator||
 operator!
+
+real if( bool, real, real )
+vec2 if( bool, vec2, vec2 )
+array if( bool, array, array )
+
+direction = if( bool, clause, clause )

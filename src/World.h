@@ -11,6 +11,7 @@
 
 #include "Essentials.h"
 #include "TimeServer.h"
+#include "Drone.h"
 
 namespace ld
 {
@@ -27,6 +28,14 @@ namespace ld
 		fr::DisplayObjectContainer& shadowLand() const
 		{
 			return getExpectedDescendant< DisplayObjectContainer >( *this, "_shadowLand" );
+		}
+		
+		void loadDroneProgram( const std::string& programText );
+		
+		template< typename FunctionT >
+		void eachDrone( FunctionT&& fn )
+		{
+			forEachDescendant< Drone >( std::move( fn ));
 		}
 	};
 }
