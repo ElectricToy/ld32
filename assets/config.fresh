@@ -1,11 +1,11 @@
 // ld32 Application Configuration - Any Platform 
 
 object AppStageConfig config {
-	desiredTitle "Ludum Dare 32"
+	desiredTitle "Drone"
 	documentsSubfolder "The Electric Toy Co/ld32"
 	logFileName "runlog.txt"
 	desiredFramesPerSecond "60"
-	desiredWindowRect "0, 0, 960, 640"
+	desiredWindowRect "0, 0, 640, 1136"
 	classPath "assets/classes.fresh"
 	stringTablePath "assets/strings.fresh"
 	assetDatabasePath "assets/asset-database.fresh"

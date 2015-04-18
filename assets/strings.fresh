@@ -2,6 +2,6 @@
 
 object StringTable strings {
 	table {
-		AppTitle "ld32"
+		AppTitle "Drone"
 	}
 }

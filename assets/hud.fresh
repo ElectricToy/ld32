@@ -1,0 +1,32 @@
+
+class Overlay extends UIPopup {
+	startHidden false
+	texture Texture'white_simple'
+	scale 160,32
+	color DarkBlue
+}
+
+class ProgrammingArea extends UIPopup {
+	startHidden false
+	texture Texture'white_simple'
+	scale 160,160
+	color DarkRed
+}
+
+class HUD extends UIPopup {
+	startHidden false
+	inheritParentFrame true
+	children [
+
+		object Overlay $^_overlay {
+			ignoreFrameAttachment false
+			parentFrameAttachPoint "0,-1"
+		}
+
+		object ProgrammingArea $^_programmingArea {
+			ignoreFrameAttachment false
+			parentFrameAttachPoint "0,1"
+		}
+	]
+}
+
