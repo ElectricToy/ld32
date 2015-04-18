@@ -149,3 +149,74 @@ Hm, not so sure about this. Seems like a lot of work. Maybe just a Javascript te
 
 In fact, now I think about it, overall this just smacks of violating my #1 goal, which is fun, and #2 goal, which is easy, straightforward and familiar concepts and controls. Sheesh.
 
+# Programming Model
+
+Sensors
+Programs
+Controls
+
+Do we use an event-based model where everything is in direct response to a prescribed event, or a polling model where the user can access whatever? So:
+
+    control_value = WRITE_CODE_HERE( using sensor values )
+
+or
+
+    when sensor_value is in such and such a state => control_value = WRITE_CODE_HERE( sensor values )
+
+I think either way we want a pretty much declarative model.
+
+All sensor values, BTW, are arrays. Even singletons are just arrays with one element. All functions take arrays and return arrays, though they might sometimes reduce an array (e.g. any_of).
+
+I'm no longer planning on having graphical elements because it's just too hard to do in 24 hours. The player will type. We'll do a tutorial. So what do they type?
+
+    direction = away_from( closest( bullets ))
+
+or
+
+    direction = away_from( average( bullets ))
+
+or
+
+    direction = away_from( closer_of( bullets + enemies ))
+
+## Literals
+
+real
+bool
+
+## Control functions
+
+MOVE( real )
+FIRE_GUNS( bool )
+FIRE_MISSILE()
+
+## Functions
+
+bool reduce( real )
+real reduce( vec2 )
+vec2 reduce( array< vec2 > ) => average
+
+real toward( vec2 )
+real away_from( vec2 )
+
+vec2 average( vec2 )
+vec2 median( vec2 )
+
+real distance( vec2 )
+
+vec2 nearest( array< vec2 > )
+vec2 farthest( array< vec2 > )
+
+real abs( real )
+vec2 abs( vec2 )
+real sign( real )
+vec2 sign( vec2 )
+
+bool operator<( real, real )
+bool operator<=( real, real )
+bool operator>( real, real )
+bool operator>=( real, real )
+
+operator&&
+operator||
+operator!

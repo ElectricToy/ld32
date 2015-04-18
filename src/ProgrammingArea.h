@@ -10,6 +10,7 @@
 #define FreshApp_ProgrammingArea_h
 
 #include "Essentials.h"
+#include "UIEditBox.h"
 
 namespace ld
 {
@@ -29,6 +30,11 @@ namespace ld
 			return getExpectedDescendant< fr::Sprite >( *this, "_background" );
 		}
 		
+		fr::UIEditBox& editBox() const
+		{
+			return getExpectedDescendant< fr::UIEditBox >( *this, "_editBox" );
+		}
+		
 		virtual void update() override
 		{
 			Super::update();
@@ -41,6 +47,10 @@ namespace ld
 			
 			background().position( 0, stageBounds.bottom() - midpoint );
 			background().scale( 160.0f, elevation * 0.5f );
+			
+			const auto& backgroundBounds = background().bounds();
+			editBox().position( backgroundBounds.ulCorner() );
+			editBox().dimensions( backgroundBounds.dimensions() );
 		}
 		
 		real top() const

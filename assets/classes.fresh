@@ -63,15 +63,24 @@ class DroneDefault extends Drone {
 	}
 }
 
+class Scrolled extends Sprite {
+	texture Texture'background'
+	scale 4
+}
+
 class WorldDefault extends World {
 	children [
 		object MovieClip $^_background {
 			children [
-				object Sprite $^_scroller {
+				object Sprite {
 					children [
-						object Sprite $^_scrolled {
-							texture Texture'background'
-							scale 4
+						object Scrolled {							
+						}
+					]
+				}
+				object Sprite {
+					children [
+						object Scrolled {							
 						}
 					]
 				}
@@ -81,16 +90,23 @@ class WorldDefault extends World {
 				object keyframe {
 					children [
 						object child $1 {							
+							position 0,-8192
+						}
+						object child $2 {
+							position 0,0
 						}
 					]
 					tween object Linear {							
 					}					
 				}
 				object keyframe {
-					rel_s 60
+					rel_s 120
 					children [
 						object child $1 {
-							position 0,2048
+							position 0,0
+						}
+						object child $2 {
+							position 0,8192
 						}
 					]
 				}

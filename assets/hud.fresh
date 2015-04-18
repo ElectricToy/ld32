@@ -1,7 +1,7 @@
 class DragThing extends Sprite {
 	texture Texture'white_simple'
-	scale 160,4
-	color White
+	scale 160,2
+	color 600000
 	isTouchEnabled true
 	isDragEnabled true
 	doMoveWithDrag true
@@ -20,6 +20,72 @@ class Overlay extends UIPopup {
 	blendMode Alpha
 }
 
+class ProgrammingText extends TextField {
+	font Font'uni05_53_8'
+	fontSize 16
+	enforcement Ellipses
+	lineHeight 0.75
+}
+
+class ProgrammingTextCaret extends MovieClip {
+	scale 0.5,6
+	pivot 0,-1.0
+
+	children [
+		object DisplayObjectContainer {
+			children [
+				object Sprite {
+					texture Texture'white_simple'
+					blendMode AlphaPremultiplied
+					color LightGray
+				}
+			]
+		}
+	]
+
+	passthrough [
+		object keyframe {
+			children [
+				object child $1 {
+					color White
+				}
+			]
+			tween object SinEaseInOut {				
+			}
+		}
+		object keyframe {
+			s 0.5
+			children [
+				object child $1 {
+					color Invisible
+				}
+			]
+			tween object SinEaseInOut {				
+			}
+		}
+		object keyframe {
+			s 2
+			children [
+				object child $1 {
+					color White
+				}
+			]
+			tween object SinEaseInOut {				
+			}
+		}
+	]
+}
+
+class ProgrammingTextField extends UIEditBox {
+	multiline true
+	textClass ProgrammingText
+	caretClass ProgrammingTextCaret
+	padding 4
+	backgroundColor Invisible
+	borderColor Invisible
+	placeholderText "Program me."
+}
+
 class ProgrammingAreaDefault extends ProgrammingArea {
 	startHidden false
 
@@ -29,6 +95,9 @@ class ProgrammingAreaDefault extends ProgrammingArea {
 			scale 160,64
 
 			color DarkRed
+		}
+
+		object ProgrammingTextField $^_editBox {			
 		}
 	]
 }
