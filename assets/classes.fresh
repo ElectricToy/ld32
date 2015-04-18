@@ -48,14 +48,12 @@ class WeaponMissile extends Weapon {
 }
 
 class DroneDefault extends Drone {
-	texture Texture'white_simple'
-	scale 16
-	dimensions 24,32	// TODO!!!
+	texture Texture'drone'
+	dimensions 30,28
 	airDrag 16
 	airControl 1
 	controllerImpulseScale 2500,0
-	color 0080fd
-
+	
 	shadowHostClass ShadowHost
 
 	weapons [
@@ -71,7 +69,7 @@ class DroneDefault extends Drone {
 
 class Scrolled extends Sprite {
 	texture Texture'background'
-	scale 4
+	scale 2
 }
 
 class WorldBackground extends MovieClip {
@@ -94,7 +92,7 @@ class WorldBackground extends MovieClip {
 		object keyframe {
 			children [
 				object child $1 {							
-					position 0,-8192
+					position 0,-4096
 				}
 				object child $2 {
 					position 0,0
@@ -110,13 +108,51 @@ class WorldBackground extends MovieClip {
 					position 0,0
 				}
 				object child $2 {
-					position 0,8192
+					position 0,4096
 				}
 			]
 		}
 	]
 }
 
+class Clouds extends Sprite {
+	children[
+		object Sprite {
+			scale 8
+			texture Texture'clouds'
+			textureWindow 0,0,2,2
+			blendMode Multiply
+			color White
+		}
+	]
+}
+
+class CloudCover extends MovieClip {
+	children [
+		object Clouds {
+		}
+	]
+
+	passthrough [
+		object keyframe {
+			children [
+				object child $1 {							
+					position -512,-4096
+				}
+			]
+			tween object Linear {							
+			}					
+		}
+		object keyframe {
+			rel_s 170
+			children [
+				object child $1 {
+					position 512,4096
+				}
+			]
+		}
+	]
+}
 class WorldDefault extends World {
 	children [
 		object WorldBackground $^_background {
@@ -131,6 +167,9 @@ class WorldDefault extends World {
 					position 1,-28
 				}
 			]
+		}
+
+		object CloudCover $^_cloudCover {			
 		}
 	]
 }
