@@ -76,25 +76,25 @@ namespace
 	struct Token
 	{
 		TokenType type;
-		std::string contents;
+		std::string content;
 		std::shared_ptr< Program::Expression > expression;
 	};
 	
-	inline Token numberOrIdentifier( std::string&& contents )
+	inline Token numberOrIdentifier( std::string&& content )
 	{
-		std::istringstream destringifier( contents );
+		std::istringstream destringifier( content );
 		real number;
 		destringifier >> number;
 		
 		TokenType type = !destringifier.fail() ? TokenType::Number : TokenType::Identifier;
-		return Token{ type, std::move( contents )};
+		return Token{ type, std::move( content )};
 	}
 	
 #define CHECK_PENDING_IDENTIFIER	\
-if( !contents.empty() )	\
+if( !content.empty() )	\
 {	\
 	in.putback( c );	\
-	return numberOrIdentifier( std::move( contents ));	\
+	return numberOrIdentifier( std::move( content ));	\
 }
 
 	std::unique_ptr< Token > g_peekedToken;
@@ -108,7 +108,7 @@ if( !contents.empty() )	\
 			return result;
 		}
 		
-		std::string contents;
+		std::string content;
 		
 		while( in )
 		{
@@ -119,108 +119,108 @@ if( !contents.empty() )	\
 			{
 				CHECK_PENDING_IDENTIFIER
 				
-				assert( contents.empty() );
+				assert( content.empty() );
 				break;
 			}
 			else if( c == '(' )
 			{
 				CHECK_PENDING_IDENTIFIER
 				
-				assert( contents.empty() );
-				contents += c;
-				return Token{ TokenType::ParenOpen, contents };
+				assert( content.empty() );
+				content += c;
+				return Token{ TokenType::ParenOpen, content };
 			}
 			else if( c == ')' )
 			{
 				CHECK_PENDING_IDENTIFIER
 				
-				assert( contents.empty() );
-				contents += c;
-				return Token{ TokenType::ParenClose, contents };
+				assert( content.empty() );
+				content += c;
+				return Token{ TokenType::ParenClose, content };
 			}
 			else if( c == '=' )
 			{
 				CHECK_PENDING_IDENTIFIER
 				
-				assert( contents.empty() );
-				contents += c;
-				return Token{ TokenType::Assign, contents };
+				assert( content.empty() );
+				content += c;
+				return Token{ TokenType::Assign, content };
 			}
 			else if( c == ';' )
 			{
 				CHECK_PENDING_IDENTIFIER
 				
-				assert( contents.empty() );
-				contents += c;
-				return Token{ TokenType::Terminator, contents };
+				assert( content.empty() );
+				content += c;
+				return Token{ TokenType::Terminator, content };
 			}
 			else if( c == ',' )
 			{
 				CHECK_PENDING_IDENTIFIER
 				
-				assert( contents.empty() );
-				contents += c;
-				return Token{ TokenType::Separator, contents };
+				assert( content.empty() );
+				content += c;
+				return Token{ TokenType::Separator, content };
 			}
 			else if(( c == '<' || c == '>' ) && lookahead == '=' )
 			{
 				CHECK_PENDING_IDENTIFIER
 				
-				assert( contents.empty() );
-				contents += c;
-				contents += lookahead;
+				assert( content.empty() );
+				content += c;
+				content += lookahead;
 				in.get();
-				return Token{ TokenType::ArithmeticComparatorOperator, contents };
+				return Token{ TokenType::ArithmeticComparatorOperator, content };
 			}
 			else if( c == '<' || c == '>' )
 			{
 				CHECK_PENDING_IDENTIFIER
 				
-				assert( contents.empty() );
-				contents += c;
-				return Token{ TokenType::ArithmeticComparatorOperator, contents };
+				assert( content.empty() );
+				content += c;
+				return Token{ TokenType::ArithmeticComparatorOperator, content };
 			}
 			else if( c == '+' )
 			{
 				CHECK_PENDING_IDENTIFIER
 				
-				assert( contents.empty() );
-				contents += c;
-				return Token{ TokenType::LowArithmeticInfixOperator, contents };
+				assert( content.empty() );
+				content += c;
+				return Token{ TokenType::LowArithmeticInfixOperator, content };
 			}
 			else if( c == '*' || c == '/' )
 			{
 				CHECK_PENDING_IDENTIFIER
 				
-				assert( contents.empty() );
-				contents += c;
-				return Token{ TokenType::HighArithmeticInfixOperator, contents };
+				assert( content.empty() );
+				content += c;
+				return Token{ TokenType::HighArithmeticInfixOperator, content };
 			}
 			else if(( c == '|' || c == '&' ) && c == lookahead )
 			{
 				CHECK_PENDING_IDENTIFIER
 				
-				assert( contents.empty() );
-				contents += c;
-				contents += lookahead;
+				assert( content.empty() );
+				content += c;
+				content += lookahead;
 				in.get();
-				return Token{ TokenType::BoolInfixOperator, contents };
+				return Token{ TokenType::BoolInfixOperator, content };
 			}
 			else if( c == '!' )
 			{
 				CHECK_PENDING_IDENTIFIER
 				
-				assert( contents.empty() );
-				contents += c;
-				return Token{ TokenType::PrefixOperator, contents };
+				assert( content.empty() );
+				content += c;
+				return Token{ TokenType::PrefixOperator, content };
 			}
 			else if( c == '-' )
 			{
 				CHECK_PENDING_IDENTIFIER
 				
-				assert( contents.empty() );
-				contents += c;
-				return Token{ TokenType::Minus, contents };
+				assert( content.empty() );
+				content += c;
+				return Token{ TokenType::Minus, content };
 			}
 			else if( std::isspace( c ))
 			{
@@ -231,12 +231,12 @@ if( !contents.empty() )	\
 				continue;
 			}
 			
-			contents += c;
+			content += c;
 		}
 		
-		if( contents.empty() == false )
+		if( content.empty() == false )
 		{
-			return numberOrIdentifier( std::move( contents ));
+			return numberOrIdentifier( std::move( content ));
 		}
 		return Token{ TokenType::EndOfFile };
 	}
@@ -275,7 +275,7 @@ if( !contents.empty() )	\
 		
 		if( std::find( types.begin(), types.end(), token.type ) == types.end() )
 		{
-			throw createString( "You had \"" << token.contents << "\" (" << token.type << ") where " << types << " was expected." );;
+			throw createString( "You had \"" << token.content << "\" (" << token.type << ") where " << types << " was expected." );;
 		}
 		
 		return token;
@@ -306,7 +306,7 @@ if( !contents.empty() )	\
 		
 		requireToken( in, TokenType::ParenClose );
 		
-		auto expression = std::make_shared< Program::FunctionExpression >( functionNameToken.contents, std::move( arguments ));
+		auto expression = std::make_shared< Program::FunctionExpression >( functionNameToken.content, std::move( arguments ));
 		return Token{ TokenType::Expression, "", expression };
 	}
 
@@ -314,7 +314,7 @@ if( !contents.empty() )	\
 	{
 		Program::FunctionExpression::Arguments arguments;
 		arguments.push_back( expression( in ).expression );
-		auto expression = std::make_shared< Program::FunctionExpression >( operatorToken.contents, std::move( arguments ));
+		auto expression = std::make_shared< Program::FunctionExpression >( operatorToken.content, std::move( arguments ));
 		return Token{ TokenType::Expression, "", expression };
 	}
 
@@ -336,7 +336,7 @@ if( !contents.empty() )	\
 		ASSERT( secondArgument );
 		arguments.push_back( secondArgument );
 		
-		auto expression = std::make_shared< Program::FunctionExpression >( operatorToken.contents, std::move( arguments ));
+		auto expression = std::make_shared< Program::FunctionExpression >( operatorToken.content, std::move( arguments ));
 		return Token{ TokenType::Expression, "", expression };
 	}
 
@@ -366,18 +366,18 @@ if( !contents.empty() )	\
 					case TokenType::HighArithmeticInfixOperator:		// TODO
 					case TokenType::ArithmeticComparatorOperator:		// TODO
 					case TokenType::BoolInfixOperator:					// TODO
-						return infixExpression( in, Token{ TokenType::Expression, "", std::make_shared< Program::SensorExpression >( token.contents ) } );
+						return infixExpression( in, Token{ TokenType::Expression, "", std::make_shared< Program::SensorExpression >( token.content ) } );
 						
 					default:
-						return Token{ TokenType::Expression, "", std::make_shared< Program::SensorExpression >( token.contents ) };
+						return Token{ TokenType::Expression, "", std::make_shared< Program::SensorExpression >( token.content ) };
 				}
 			}
 			case TokenType::Number:
 			{
-				std::istringstream destringifier( token.contents );
+				std::istringstream destringifier( token.content );
 				real number;
 				destringifier >> number;
-				token = Token{ TokenType::Expression, token.contents, std::make_shared< Program::LiteralExpression >( Program::Value{ number }) };
+				token = Token{ TokenType::Expression, token.content, std::make_shared< Program::LiteralExpression >( Program::Value{ number }) };
 				auto peeked = peekToken( in );
 				switch( peeked.type )
 				{
@@ -417,7 +417,7 @@ if( !contents.empty() )	\
 		auto valueExpression = expression( in );
 		ASSERT( valueExpression.type == TokenType::Expression );
 		ASSERT( valueExpression.expression );
-		return std::make_shared< Program::Assignment >( control.contents, valueExpression.expression );
+		return std::make_shared< Program::Assignment >( control.content, valueExpression.expression );
 	}
 	
 	typedef std::map< std::string,

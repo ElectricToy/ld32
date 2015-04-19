@@ -11,4 +11,3 @@ object AppStageConfig config {
 	assetDatabasePath "assets/asset-database.fresh"
 	stageManifestPath "assets/stage.fresh"
 }
-

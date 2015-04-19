@@ -14,7 +14,7 @@ class MuzzleFlash extends ParticleEmitter {
 	startingParticles 1
 	destroyWhenAllDead true
 	cycleDuration 0.05
-	baseScale 11
+	baseScale 16
 	creationSpawnBurst true
 	creationPauseAfterBurst true
 	spawnRotationRange 0,359
