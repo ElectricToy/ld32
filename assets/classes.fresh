@@ -7,8 +7,7 @@ class ShadowHost extends DisplayObjectContainer {
 	blendMode AlphaPremultiplied
 }
 
-class DroneControllerDefault extends DroneController {
-}
+class DroneControllerDefault extends DroneController {}
 
 class MuzzleFlash extends ParticleEmitter {
 	particleTexture Texture'muzzle_flash'
@@ -25,26 +24,29 @@ class MuzzleFlash extends ParticleEmitter {
 	]
 }
 
-class BulletMachineGun extends Bullet {
+class BulletDefault extends Bullet {
+	shadowHostClass ShadowHost
+}
+
+class BulletMachineGun extends BulletDefault {
 	texture Texture'white_simple'
 	scale 1,8
 	pivot 0,1
 	velocity 0,-2000
 	lifespan 60
-	color DarkGray
+	color ffcc00
 }
 
 class WeaponMachineGuns extends Weapon {
 	fireDelay 0.1
 	shots [
-		"{MuzzleFlash, (12,-10), BulletMachineGun, (12,-10)}"
-		"{MuzzleFlash, (-12,-10), BulletMachineGun, (-12,-10)}"
+		"{MuzzleFlash, (4,-10), BulletMachineGun, (4,-10)}"
+		"{MuzzleFlash, (-4,-10), BulletMachineGun, (-4,-10)}"
 	]
 }
 
 class WeaponMissile extends Weapon {
-	shots [
-	]
+	shots []
 }
 
 class DroneDefault extends Drone {
@@ -57,14 +59,11 @@ class DroneDefault extends Drone {
 	shadowHostClass ShadowHost
 
 	weapons [
-		object WeaponMachineGuns {
-		}
-		object WeaponMissile {
-		}
+		object WeaponMachineGuns {}
+		object WeaponMissile {}
 	]
 
-	controller object DroneControllerDefault {
-	}
+	controller object DroneControllerDefault {}
 }
 
 class Scrolled extends Sprite {
@@ -76,14 +75,12 @@ class WorldBackground extends MovieClip {
 	children [
 		object Sprite {
 			children [
-				object Scrolled {							
-				}
+				object Scrolled {}
 			]
 		}
 		object Sprite {
 			children [
-				object Scrolled {							
-				}
+				object Scrolled {}
 			]
 		}
 	]
@@ -98,8 +95,7 @@ class WorldBackground extends MovieClip {
 					position 0,0
 				}
 			]
-			tween object Linear {							
-			}					
+			tween object Linear {}					
 		}
 		object keyframe {
 			rel_s 120
@@ -117,11 +113,9 @@ class WorldBackground extends MovieClip {
 
 class WorldDefault extends World {
 	children [
-		object WorldBackground $^_background {
-		}
+		object WorldBackground $^_background {}
 
-		object DisplayObjectContainer $^_shadowLand {			
-		}
+		object DisplayObjectContainer $^_shadowLand {}
 
 		object DisplayObjectContainer $^_actorHost {
 			children [

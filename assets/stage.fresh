@@ -3,17 +3,17 @@
 object AppStage theStage {
 
 	stageDimensions "320,0"
+
+	keyboardFocusHolder ProgrammingEditBoxDefault'theHud_programmingArea_editBox'
 	
 	children [
 
 		object DisplayObjectContainer $^_worldHost {
 			children [
-				object WorldDefault $^_world {
-				}
+				object WorldDefault $^_world {}
 			]
 		}
 
-		object HUDDefault {
-		}
+		object HUDDefault theHud {}
 	]
 }

@@ -50,8 +50,7 @@ class ProgrammingTextCaret extends MovieClip {
 					color White
 				}
 			]
-			tween object SinEaseInOut {				
-			}
+			tween object SinEaseInOut {}
 		}
 		object keyframe {
 			s 0.25
@@ -60,8 +59,7 @@ class ProgrammingTextCaret extends MovieClip {
 					color Invisible
 				}
 			]
-			tween object SinEaseInOut {				
-			}
+			tween object SinEaseInOut {}
 		}
 		object keyframe {
 			s 1
@@ -70,8 +68,7 @@ class ProgrammingTextCaret extends MovieClip {
 					color White
 				}
 			]
-			tween object SinEaseInOut {				
-			}
+			tween object SinEaseInOut {}
 		}
 	]
 }
@@ -97,8 +94,7 @@ class ProgrammingAreaDefault extends ProgrammingArea {
 			color DarkRed
 		}
 
-		object ProgrammingEditBoxDefault $^_editBox {			
-		}
+		object ProgrammingEditBoxDefault $^_editBox {}
 	]
 }
 
@@ -108,13 +104,10 @@ class HUDDefault extends HUD {
 	inheritParentFrame true
 	children [
 
-		object Overlay $^_overlay {
-		}
+		object Overlay $^_overlay {}
 
-		object ProgrammingAreaDefault $^_programmingArea {
-		}
+		object ProgrammingAreaDefault $^_programmingArea {}
 
-		object DragThing $^_dragThing {	
-		}		
+		object DragThing $^_dragThing {}		
 	]
 }
