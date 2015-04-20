@@ -20,11 +20,11 @@ object TextureLoaderConfigured background {
 }
 
 object TextureLoaderConfigured muzzle_flash {
-	filePath images/muzzle_flash
+	filePath "images/muzzle_flash"
 }
 
 object TextureLoaderConfigured drone {
-	filePath images/drone
+	filePath "images/drone"
 }
 
 // Sounds 

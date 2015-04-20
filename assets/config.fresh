@@ -5,7 +5,7 @@ object AppStageConfig config {
 	documentsSubfolder "The Electric Toy Co/ld32"
 	logFileName "runlog.txt"
 	desiredFramesPerSecond "60"
-	desiredWindowRect "0, 0, 640, 1136"
+	desiredWindowRect "0, 0, 640, 960"
 	classPath "assets/classes.fresh"
 	stringTablePath "assets/strings.fresh"
 	assetDatabasePath "assets/asset-database.fresh"
