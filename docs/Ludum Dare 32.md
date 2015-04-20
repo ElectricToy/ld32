@@ -184,16 +184,17 @@ or
 expression :=
     ( expression )
     IDENTIFIER ( argument_list  )
-    IDENTIFIER INFIX expression
     IDENTIFIER
-    NUMBER INFIX expression
-    PREFIX expression
     NUMBER
+    expression INFIX expression
+    PREFIX expression
+
+1 + 2 + 3
 
 
 argument_list
     O
-    argument_list expression
+    argument_list , expression
 
 
 

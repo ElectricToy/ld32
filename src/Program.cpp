@@ -340,64 +340,121 @@ if( !content.empty() )	\
 		return Token{ TokenType::Expression, "", expression };
 	}
 
+	Token identifierExpression( std::istream& in, Token token )
+	{
+		auto peeked = peekToken( in );
+		switch( peeked.type )
+		{
+			case TokenType::ParenOpen:
+				token = functionExpression( in, token );
+				break;
+				
+//			case TokenType::LowArithmeticInfixOperator:
+//			case TokenType::Minus:
+//			case TokenType::HighArithmeticInfixOperator:		// TODO
+//			case TokenType::ArithmeticComparatorOperator:		// TODO
+//			case TokenType::BoolInfixOperator:					// TODO
+//				token = infixExpression( in, Token{ TokenType::Expression, "", std::make_shared< Program::SensorExpression >( token.content ) } );
+//				break;
+//				
+			default:
+				token = Token{ TokenType::Expression, "", std::make_shared< Program::SensorExpression >( token.content ) };
+				break;
+		}
+		return token;
+	}
+	
+	Token numberExpression( std::istream& in, Token token )
+	{
+		std::istringstream destringifier( token.content );
+		real number;
+		destringifier >> number;
+		token = Token{ TokenType::Expression, token.content, std::make_shared< Program::LiteralExpression >( Program::Value{ number }) };
+//		auto peeked = peekToken( in );
+//		switch( peeked.type )
+//		{
+//			case TokenType::LowArithmeticInfixOperator:
+//			case TokenType::Minus:
+//			case TokenType::HighArithmeticInfixOperator:		// TODO
+//			case TokenType::ArithmeticComparatorOperator:		// TODO
+//			case TokenType::BoolInfixOperator:					// TODO
+//				token = infixExpression( in, token );
+//				break;
+//				
+//			default:
+//				break;
+//		}
+		
+		return token;
+	}
 	
 	Token expression( std::istream& in )
 	{
-		auto token = nextToken( in );
-
-		switch( token.type )
+		Token lastExpression{ TokenType::Null };
+		
+		while( true )
 		{
-			case TokenType::ParenOpen:
-			{
-				auto expr = expression( in );
-				requireToken( in, TokenType::ParenClose );
-				return expr;
-			}
-			case TokenType::Identifier:
-			{
-				auto peeked = peekToken( in );
-				switch( peeked.type )
-				{
-					case TokenType::ParenOpen:
-						return functionExpression( in, token );
-						
-					case TokenType::LowArithmeticInfixOperator:
-					case TokenType::Minus:
-					case TokenType::HighArithmeticInfixOperator:		// TODO
-					case TokenType::ArithmeticComparatorOperator:		// TODO
-					case TokenType::BoolInfixOperator:					// TODO
-						return infixExpression( in, Token{ TokenType::Expression, "", std::make_shared< Program::SensorExpression >( token.content ) } );
-						
-					default:
-						return Token{ TokenType::Expression, "", std::make_shared< Program::SensorExpression >( token.content ) };
-				}
-			}
-			case TokenType::Number:
-			{
-				std::istringstream destringifier( token.content );
-				real number;
-				destringifier >> number;
-				token = Token{ TokenType::Expression, token.content, std::make_shared< Program::LiteralExpression >( Program::Value{ number }) };
-				auto peeked = peekToken( in );
-				switch( peeked.type )
-				{
-					case TokenType::LowArithmeticInfixOperator:
-					case TokenType::Minus:
-					case TokenType::HighArithmeticInfixOperator:		// TODO
-					case TokenType::ArithmeticComparatorOperator:		// TODO
-					case TokenType::BoolInfixOperator:					// TODO
-						return infixExpression( in, token );
-						
-					default:
-						return token;
-				}
-			}
-			case TokenType::Minus:
-			case TokenType::PrefixOperator:
-				return unaryOperatorExpression( in, token );
+			auto token = peekToken( in );
 
-			default:
-				return token;
+			if( lastExpression.type != TokenType::Null )
+			{
+				switch( token.type )
+				{
+					case TokenType::LowArithmeticInfixOperator:
+					case TokenType::Minus:
+					case TokenType::HighArithmeticInfixOperator:		// TODO
+					case TokenType::ArithmeticComparatorOperator:		// TODO
+					case TokenType::BoolInfixOperator:					// TODO
+						lastExpression = infixExpression( in, lastExpression );
+						break;
+					case TokenType::EndOfFile:
+						nextToken( in );
+						return lastExpression;
+					case TokenType::ParenClose:
+					case TokenType::Terminator:
+						return lastExpression;
+					default:
+						throw createString( "Unexpected token " << token.content << "(" << token.type << ")." );
+				}
+			}
+			else
+			{
+				switch( token.type )
+				{
+					case TokenType::Terminator:
+						nextToken( in );
+						return lastExpression;
+						
+					case TokenType::ParenOpen:
+					{
+						token = nextToken( in );
+						lastExpression = expression( in );
+						requireToken( in, TokenType::ParenClose );
+						break;
+					}
+					case TokenType::Identifier:
+					{
+						token = nextToken( in );
+						lastExpression = identifierExpression( in, token );
+						break;
+					}
+					case TokenType::Number:
+					{
+						token = nextToken( in );
+						lastExpression = numberExpression( in, token );
+						break;
+					}
+					case TokenType::Minus:
+					case TokenType::PrefixOperator:
+						token = nextToken( in );
+						lastExpression = unaryOperatorExpression( in, token );
+						break;
+
+					default:
+						lastExpression = nextToken( in );
+						break;
+				}
+			}
 		}
 	}
 	
@@ -412,12 +469,14 @@ if( !content.empty() )	\
 
 		requireToken( in, TokenType::Assign );
 
-		Token lastToken{ TokenType::Null };
-		
 		auto valueExpression = expression( in );
 		ASSERT( valueExpression.type == TokenType::Expression );
 		ASSERT( valueExpression.expression );
-		return std::make_shared< Program::Assignment >( control.content, valueExpression.expression );
+		auto result = std::make_shared< Program::Assignment >( control.content, valueExpression.expression );
+		
+		requireToken( in, TokenType::Terminator );
+		
+		return result;
 	}
 	
 	typedef std::map< std::string,
